@@ -19,13 +19,32 @@ function compileFile(json){
 function replaceContent(content,json){
     var cssOrginCodes = content.match(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/g)
   //  console.log(cssOrginCodes)
-
+    var cssDistCodes = [];
     for (var k in cssOrginCodes){
         var insideHrefs = cssOrginCodes[k].match(/\w*\.css/g)
         if(insideHrefs){ //match out href="test.css"
-           console.log(insideHrefs)
+           for(var i in insideHrefs ){
+               if(json[insideHrefs[i]]){
+                   cssOrginCodes[k]+='<script id="'+insideHrefs[i]+'">lsloader.loadCss('+insideHrefs[i]+','+json[insideHrefs[i]]+')</script>'
+               }
+           }
         }
+        cssOrginCodes[k].replace(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/,'');
     }
+
+    content.replace(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/g,function(cssOrginCodes){
+        var insideHrefs = cssOrginCodes.match(/\w*\.css/g)
+        if(insideHrefs){ //match out href="test.css"
+            for(var i in insideHrefs ){
+                if(json[insideHrefs[i]]){
+                    cssOrginCodes+='<script id="'+insideHrefs[i]+'">lsloader.loadCss('+insideHrefs[i]+','+json[insideHrefs[i]]+')</script>'
+                }
+            }
+        }
+        return cssOrginCodes.replace(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/,'');
+    })
+    console.log(content)
+
 
     //var preloadScript= content.match(/<script build=\'preload\'>[\s|\S]*<\/script>/)
     //
