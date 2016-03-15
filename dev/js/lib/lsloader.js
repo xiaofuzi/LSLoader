@@ -18,7 +18,6 @@
     lsloader.io = function(path,callback){
         var xhr = new XMLHttpRequest()
         xhr.open("get",path,true);
-        xhr.setRequestHeader("Content-Type","text/html")
         xhr.onreadystatechange = function(){
             if (xhr.readyState == 4) {//readyState表示文档加载进度,4表示完毕
                 callback(xhr.responseText);//responseText属性用来取得返回的文本
