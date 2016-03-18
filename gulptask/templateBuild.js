@@ -19,7 +19,7 @@ function compileFile(json){
 
 function replaceContent(content,json){
 
-
+    //css 替换
     content= content.replace(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/g,function(cssOrginCodes){
         var insideHrefs = cssOrginCodes.match(/\w*\.css/g)
         if(insideHrefs){ //match out href="test.css"
@@ -32,7 +32,7 @@ function replaceContent(content,json){
         return cssOrginCodes.replace(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/,'');
     })
 
-
+    // js 替换
     content= content.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/g,function(cssOrginCodes){
         var insideHrefs = cssOrginCodes.match(/\w*\.js/g)
         if(insideHrefs){ //match out href="test.css"
@@ -43,6 +43,12 @@ function replaceContent(content,json){
             }
         }
         return cssOrginCodes.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/,'');
+    })
+
+    //替换lsloader.js入行内
+    content= content.replace(/<!--lsloder build-->[\s|\S]*?<!--lsloder build-->/,function(cssOrginCodes){
+        var content = fs.readFileSync('gulptask/lsloader.js',"utf-8")
+        return cssOrginCodes.replace(/<!--lsloder build-->[\s|\S]*?<!--lsloder build-->/,'<script>'+content+'</script>');
     })
 
     return content

@@ -1,8 +1,4 @@
-<html>
-
-<head>
-
-    <script>(function(){
+(function(){
 
     window.lsloader = {};
 
@@ -53,23 +49,4 @@
 
 
 
-})()</script>
-<script src="../js/lib/lsloader.js"></script>
-
-<style id="main_css"></style><script>lsloader.load("main_css","../css/main-6bb8b1353e.css" )</script>
-
-<style id="page2_css"></style><script>lsloader.load("page2_css","../css/page2-9233b55c22.css" )</script><style id="page3_css"></style><script>lsloader.load("page3_css","../css/page3-85aa51992e.css" )</script>
-
-
-
-</head>
-<body>
-
-<div id="container"></div>
-
-
-<script id="index_js"></script><script>lsloader.load("index_js","../js/index-9387164f6e.js" )</script>
-</body>
-
-
-</html>
+})()
