@@ -56,7 +56,7 @@ exports.run=function(){
     var data = fs.readFileSync("build/rev-manifest.json","utf-8")
     data = JSON.parse(data)
     compileFile(data)
-    console.log('preload success')
+    console.log('templatebuild success')
 }
 
 module.exports = exports;
