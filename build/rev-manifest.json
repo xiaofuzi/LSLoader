@@ -1,7 +1,9 @@
 {
-  "index.js": "js/index-9387164f6e.js",
+  "fastclick.js": "js/fastclick-348e8477b5.js",
+  "index.js": "js/index-45fecb8b9d.js",
+  "jquery.js": "js/jquery-93d54dec1e.js",
   "lsloader.js": "js/lib/lsloader-62e220ce0a.js",
-  "main.css": "css/main-6bb8b1353e.css",
+  "main.css": "css/main-4f96fa1ada.css",
   "page2.css": "css/page2-9233b55c22.css",
-  "page3.css": "css/page3-85aa51992e.css"
+  "page3.css": "css/page3-4c74aa09a8.css"
 }

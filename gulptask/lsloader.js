@@ -9,6 +9,7 @@
 
 
     window.lsloader = {
+        jsRunSequence:[], //js 运行队列 {name:代码name,code:代码}
         jsFallbacks:[],   //js xhr请求失败队列,按顺序加载执行js
         jsnamemap:{},     //js name map 防fallback 重复请求资源
         cssnamemap:{}      //css name map 防fallback 重复请求资源
@@ -42,22 +43,54 @@
         localStorage.removeItem(key)
     };
 
-    lsloader.requestResource = function(jsname,jspath){
-        this.io(jspath,jsname,function(code){
-            document.getElementById(jsname).appendChild(document.createTextNode(code));
-            try{
-                localStorage.setItem(jsname,jspath+'/*codestartv1*/'+code);
-            }catch(e){
-            }
-        })
+    lsloader.requestResource = function(name,path){
+        if(/\.js$/.test(path)) {
+            var that = this
+            this.iojs(path,name,function(path,name,code){
+                that.runjs(path,name,code);
+            })
+        }else if(/\.css$/.test(path)){
+            this.iocss(path,name,function(code){
+                document.getElementById(name).appendChild(document.createTextNode(code));
+                try{
+                    localStorage.setItem(name,path+'/*codestartv1*/'+code);
+                }catch(e){
+                }
+            })
+        }
+
     };
 
     //ajax 请求资源
-    lsloader.io = function(path,jsname,callback){
+    lsloader.iojs = function(path,jsname,callback){
+        var that = this;
+        that.jsRunSequence.push({name:jsname,code:''})
+        try{
+            var xhr = new XMLHttpRequest();
+            xhr.open("get",path,true);
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState == 4){
+                    if((xhr.status >=200 && xhr.status < 300 ) || xhr.status == 304){
+                        if(xhr.response!=''){
+                            callback(path,jsname,xhr.response);
+                            return;
+                        }
+                    }
+                    that.jsfallback(path,jsname);
+                }
+            };
+            xhr.send(null);
+        }catch(e){
+            that.jsfallback(path,jsname);
+        }
+
+    };
+
+    lsloader.iocss = function(path,jsname,callback){
         var that = this;
         try{
             var xhr = new XMLHttpRequest();
-            xhr.open("get",path,false);
+            xhr.open("get",path,true);
             xhr.onreadystatechange = function(){
                 if (xhr.readyState == 4){
                     if((xhr.status >=200 && xhr.status < 300 ) || xhr.status == 304){
@@ -67,27 +100,31 @@
                         }
                     }
                 }
-
-                if(/\.js$/.test(path)) {
-                    that.jsfallback(path,jsname);
-                }else if(/\.css$/.test(path)){
-                    that.cssfallback(path,jsname);
-                }
+                that.cssfallback(path,jsname);
             };
             xhr.send(null);
 
         }catch(e){
-
-            if(/\.js$/.test(path)) {
-                that.jsfallback(path,jsname);
-            }else if(/\.css$/.test(path)){
-                that.cssfallback(path,jsname);
-            }
-
+            that.cssfallback(path,jsname);
         }
 
     };
 
+    lsloader.runjs = function(path,name,code){
+        try{
+            localStorage.setItem(name,path+'/*codestartv1*/'+code);
+        }catch(e){
+        }
+        for(var k in this.jsRunSequence){
+            if(this.jsRunSequence[k].name == name){
+                this.jsRunSequence[k].code = code
+            }
+        }
+        while(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''){
+            document.getElementById(this.jsRunSequence[0].name).appendChild(document.createTextNode(this.jsRunSequence[0].code));
+            this.jsRunSequence.shift();
+        }
+    }
 
     //js回退加载 this.jsnamemap[name] 存在 证明已经在队列中 放弃
     //如果 path name 都为空 为来自上个任务js加载完成的回调 直接从加载队列中处理
