@@ -1,4 +1,5 @@
 /**
+ * lsloader 动态异步加载,css需要注意防止reflow ,js需要注意所有同步顺序脚本都要用lsloader编译,避免出错
  * codestartv1 ls版本号,改动这个版本号 所有ls作废.
  * lsloader.load(name,path)
  * name  根据路径生成的唯一localStorage key
@@ -184,6 +185,14 @@
         root.parentNode.insertBefore(link, root)
     }
 
+
+    lsloader.runInlineScript = function(scriptId){
+        var script = document.createElement('script');
+        var code = document.createTextNode(document.getElementById(scriptId).innerText);
+        script.appendChild(code)
+        var root = document.getElementById(scriptId);
+        root.parentNode.insertBefore(script, root);
+    }
 
 })()/**
  * Created by yanghuanyu on 16/3/19.
