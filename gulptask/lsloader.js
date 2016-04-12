@@ -9,15 +9,19 @@
 
 
     window.lsloader = {
-        jsRunSequence:[], //js 运行队列 {name:代码name,code:代码}
-        jsFallbacks:[],   //js xhr请求失败队列,按顺序加载执行js
+        jsRunSequence:[], //js 运行队列 {name:代码name,code:代码,status:状态 failed/loading,path:线上路径}
         jsnamemap:{},     //js name map 防fallback 重复请求资源
         cssnamemap:{}      //css name map 防fallback 重复请求资源
     };
 
     //读取资源到模板中
     lsloader.load = function(jsname,jspath){
-        var code = localStorage.getItem(jsname);
+        var code;
+        try{
+            code = localStorage.getItem(jsname);
+        }catch (e){
+            code = '';
+        }
         if(!/\/\*codestartv1\*\//.test(code)){   //ls 版本 codestartv1 每次换这个版本 所有ls作废
             this.removeLS(jsname);
             this.requestResource(jsname,jspath);
@@ -32,7 +36,12 @@
                 return
             }
             code = code.split('/*codestartv1*/')[1];
-            document.getElementById(jsname).appendChild(document.createTextNode(code))
+            if(/\.js$/.test(versionNumber)){
+                this.jsRunSequence.push({name:jsname,code:code})
+                this.runjs(jspath,jsname,code);
+            }else{
+                document.getElementById(jsname).appendChild(document.createTextNode(code))
+            }
         }else{
             //null xhr获取资源
             this.requestResource(jsname,jspath);
@@ -47,6 +56,10 @@
         if(/\.js$/.test(path)) {
             var that = this
             this.iojs(path,name,function(path,name,code){
+                try {
+                    localStorage.setItem(name, path + '/*codestartv1*/' + code);
+                } catch (e) {
+                }
                 that.runjs(path,name,code);
             })
         }else if(/\.css$/.test(path)){
@@ -99,8 +112,8 @@
                             return;
                         }
                     }
+                    that.cssfallback(path,jsname);
                 }
-                that.cssfallback(path,jsname);
             };
             xhr.send(null);
 
@@ -111,47 +124,51 @@
     };
 
     lsloader.runjs = function(path,name,code){
-        try{
-            localStorage.setItem(name,path+'/*codestartv1*/'+code);
-        }catch(e){
-        }
-        for(var k in this.jsRunSequence){
-            if(this.jsRunSequence[k].name == name){
-                this.jsRunSequence[k].code = code
+        if(!!path&&!!name&&!!code) {    //如果有path name code ,xhr来的结果,写入ls 否则是script.onload调用,去除js队列中的该项,继续执行队列
+            for (var k in this.jsRunSequence) {
+                if (this.jsRunSequence[k].name == name) {
+                    this.jsRunSequence[k].code = code;
+                }
             }
         }
-        while(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''){
+        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''){
             document.getElementById(this.jsRunSequence[0].name).appendChild(document.createTextNode(this.jsRunSequence[0].code));
             this.jsRunSequence.shift();
-        }
-    }
-
-    //js回退加载 this.jsnamemap[name] 存在 证明已经在队列中 放弃
-    //如果 path name 都为空 为来自上个任务js加载完成的回调 直接从加载队列中处理
-    lsloader.jsfallback = function(path,name){
-        if(path!=null && name!=null){
-            if(!!this.jsnamemap[name]){
-                return;
-            }else{
-                this.jsnamemap[name]=name;
+            if(this.jsRunSequence.length>0) {
+                this.runjs();
             }
-            if(path){
-                this.jsFallbacks.push(path);
-            }
-        }
-        var that = this;
-        if(this.jsFallbacks.length==1 || (path==null && name==null)){ //只有一个等待加载的js 或者是上个js回调这里 直接异步加载 否则队列中等待
+        }else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=='failed'){
+            var that = this;
             var script = document.createElement('script');
-            script.src = this.jsFallbacks[0];
+            script.src = this.jsRunSequence[0].path;
+            this.jsRunSequence[0].status = 'loading'
             script.onload=function(){
-                that.jsFallbacks.shift();
-                if(that.jsFallbacks.length>0){
-                    that.jsfallback(null,null); //如果还有js等待，加载他
+                that.jsRunSequence.shift();
+                if(that.jsRunSequence.length>0){
+                    that.runjs(); //如果jsSequence还有排队的 继续运行
                 }
             };
             var root = document.getElementsByTagName('script')[0];
             root.parentNode.insertBefore(script, root);
         }
+    }
+
+    //js回退加载 this.jsnamemap[name] 存在 证明已经在队列中 放弃
+    lsloader.jsfallback = function(path,name){
+            if(!!this.jsnamemap[name]){
+                return;
+            }else{
+                this.jsnamemap[name]=name;
+            }
+        //jsRunSequence队列中 找到fail的文件,标记他,等到runjs循环用script请求
+        for (var k in this.jsRunSequence) {
+            if (this.jsRunSequence[k].name == name) {
+                this.jsRunSequence[k].code = '';
+                this.jsRunSequence[k].status='failed';
+                this.jsRunSequence[k].path=path;
+            }
+        }
+        this.runjs();
     };
     lsloader.cssfallback =function(path,name){
         if(!!this.cssnamemap[name]){
