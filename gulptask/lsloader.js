@@ -154,6 +154,11 @@
         }
     }
 
+    lsloader.tagLoad = function(path,name){
+        this.jsRunSequence.push({name:name,code:'',path:path,status:'failed'});
+        this.runjs();
+    }
+
     //js回退加载 this.jsnamemap[name] 存在 证明已经在队列中 放弃
     lsloader.jsfallback = function(path,name){
             if(!!this.jsnamemap[name]){

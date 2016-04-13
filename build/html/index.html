@@ -158,6 +158,11 @@
         }
     }
 
+    lsloader.tagLoad = function(path,name){
+        this.jsRunSequence.push({name:name,code:'',path:path,status:'failed'});
+        this.runjs();
+    }
+
     //js回退加载 this.jsnamemap[name] 存在 证明已经在队列中 放弃
     lsloader.jsfallback = function(path,name){
             if(!!this.jsnamemap[name]){
@@ -212,20 +217,20 @@
 
 <div id="container"></div>
 
-<script id="ls-loader-tagload1"></script><script>lsloader.jsfallback("http://res.wx.qq.com/open/js/jweixin-1.0.0.js","ls-loader-tagload1" )</script>
+<script>lsloader.tagLoad("http://res.wx.qq.com/open/js/jweixin-1.0.0.js","ls-loader-tagload1" )</script>
 
 <textarea style="display:none" id="ls-loader-inlinecode1">
 console.log('bat')
 </textarea><script id="ls-loader-inlinerun1"></script><script>lsloader.runInlineScript("ls-loader-inlinerun1","ls-loader-inlinecode1")</script>
 
-
+<script id="../js/jquery.js"></script><script>lsloader.load("../js/jquery.js","../js/jquery-93d54dec1e.js" )</script>
 
 <textarea style="display:none" id="ls-loader-inlinecode2">$(document.body).append('<div>????</div>');
 console.log('?')
 </textarea><script id="ls-loader-inlinerun2"></script><script>lsloader.runInlineScript("ls-loader-inlinerun2","ls-loader-inlinecode2")</script>
 
-
-
+<script id="../js/index.js"></script><script>lsloader.load("../js/index.js","../js/index-45fecb8b9d.js" )</script>
+<script id="../js/fastclick.js"></script><script>lsloader.load("../js/fastclick.js","../js/fastclick-348e8477b5.js" )</script>
 </body>
 
 

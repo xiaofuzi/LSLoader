@@ -34,14 +34,15 @@ function replaceContent(content,json){
 
     // js 替换
     content= content.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/g,function(cssOrginCodes){
-        var insideHrefs = cssOrginCodes.match(/[^'"]*\.js/g)
+        var insideHrefs = cssOrginCodes.match(/[^'"]*\.js/g);
         if(insideHrefs){ //match out href="test.css"
-            for(var i in insideHrefs ){
+            for(var i in insideHrefs ){ 
                 if(json[insideHrefs[i]]){
                     cssOrginCodes+='<script id="'+insideHrefs[i]+'"></script><script>lsloader.load("'+insideHrefs[i]+'","'+staticPath+json[insideHrefs[i]]+'" )</script>'
                 }
             }
         }
+
         return cssOrginCodes.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/,'');
     })
 
@@ -66,7 +67,7 @@ function replaceContent(content,json){
         if(insideHrefs){ //match out href="test.js"
             for(var i in insideHrefs ){
                 tagload++;
-                cssOrginCodes+='<script id="ls-loader-tagload'+tagload+'"></script><script>lsloader.jsfallback("'+insideHrefs[i]+'","ls-loader-tagload'+tagload+'" )</script>'
+                cssOrginCodes+='<script>lsloader.tagLoad("'+insideHrefs[i]+'","ls-loader-tagload'+tagload+'" )</script>'
             }
         }
         return cssOrginCodes.replace(/<!--js scriptload build-->[\s|\S]*?<!--js scriptload endbuild-->/,'');
