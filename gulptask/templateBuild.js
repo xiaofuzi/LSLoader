@@ -25,7 +25,7 @@ function replaceContent(content,json){
         if(insideHrefs){ //match out href="test.css"
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
-                    cssOrginCodes+='<style id="'+insideHrefs[i].replace('.','_')+'"></style><script>lsloader.load("'+insideHrefs[i].replace('.','_')+'","'+staticPath+json[insideHrefs[i]]+'" )</script>'
+                    cssOrginCodes+='<style id="'+insideHrefs[i]+'"></style><script>lsloader.load("'+insideHrefs[i]+'","'+staticPath+json[insideHrefs[i]]+'" )</script>'
                 }
             }
         }
@@ -38,11 +38,25 @@ function replaceContent(content,json){
         if(insideHrefs){ //match out href="test.css"
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
-                    cssOrginCodes+='<script id="'+insideHrefs[i].replace('.','_')+'"></script><script>lsloader.load("'+insideHrefs[i].replace('.','_')+'","'+staticPath+json[insideHrefs[i]]+'" )</script>'
+                    cssOrginCodes+='<script id="'+insideHrefs[i]+'"></script><script>lsloader.load("'+insideHrefs[i]+'","'+staticPath+json[insideHrefs[i]]+'" )</script>'
                 }
             }
         }
         return cssOrginCodes.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/,'');
+    })
+
+    // inline js 替换
+    var inlinejsCount = 0;
+    content = content.replace(/<!--js inline build-->[\s|\S]*?<!--js inline endbuild-->/g,function(inlinejs){
+         var inlinejsCodes = inlinejs.match(/(<script[^>]*?>)([\s\S]*?)(<\/script>)/i)[2]
+           if(inlinejsCodes){
+               inlinejsCount++;
+               inlinejs ='';
+               inlinejs +='<textarea style="display:none" id="ls-loader-inlinecode'+inlinejsCount+'">'+inlinejsCodes+'</textarea>'
+               inlinejs += '<script id="ls-loader-inlinerun'+inlinejsCount+'"></script>'
+               inlinejs += '<script>lsloader.runInlineScript("ls-loader-inlinerun'+inlinejsCount+'","ls-loader-inlinecode'+inlinejsCount+'")</script>'
+           }
+        return inlinejs.replace(/<!--js inline build-->[\s|\S]*?<!--js inline endbuild-->/,'');
     })
 
     //替换lsloader.js入行内

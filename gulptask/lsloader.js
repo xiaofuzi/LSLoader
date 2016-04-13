@@ -125,14 +125,14 @@
     };
 
     lsloader.runjs = function(path,name,code){
-        if(!!path&&!!name&&!!code) {    //如果有path name code ,xhr来的结果,写入ls 否则是script.onload调用,去除js队列中的该项,继续执行队列
+        if(!!path&&!!name&&!!code) {    //如果有path name code ,xhr来的结果,写入ls 否则是script.onload调用
             for (var k in this.jsRunSequence) {
                 if (this.jsRunSequence[k].name == name) {
                     this.jsRunSequence[k].code = code;
                 }
             }
         }
-        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''){
+        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''){ //每次进入runjs检查,如果第一项有代码,执行并剔除队列,回调
             document.getElementById(this.jsRunSequence[0].name).appendChild(document.createTextNode(this.jsRunSequence[0].code));
             this.jsRunSequence.shift();
             if(this.jsRunSequence.length>0) {
@@ -186,12 +186,10 @@
     }
 
 
-    lsloader.runInlineScript = function(scriptId){
-        var script = document.createElement('script');
-        var code = document.createTextNode(document.getElementById(scriptId).innerText);
-        script.appendChild(code)
-        var root = document.getElementById(scriptId);
-        root.parentNode.insertBefore(script, root);
+    lsloader.runInlineScript = function(scriptId,codeId){
+        var code = document.getElementById(codeId).innerText;
+         this.jsRunSequence.push({name:scriptId,code:code})
+         this.runjs()
     }
 
 })()/**
