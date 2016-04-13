@@ -21,7 +21,7 @@ function replaceContent(content,json){
 
     //css 替换
     content= content.replace(/<!--css ls build-->[\s|\S]*?<!--css ls endbuild-->/g,function(cssOrginCodes){
-        var insideHrefs = cssOrginCodes.match(/\w*\.css/g)
+        var insideHrefs = cssOrginCodes.match(/[^'"]*\.css/g)
         if(insideHrefs){ //match out href="test.css"
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
@@ -34,7 +34,7 @@ function replaceContent(content,json){
 
     // js 替换
     content= content.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/g,function(cssOrginCodes){
-        var insideHrefs = cssOrginCodes.match(/\w*\.js/g)
+        var insideHrefs = cssOrginCodes.match(/[^'"]*\.js/g)
         if(insideHrefs){ //match out href="test.css"
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
@@ -57,6 +57,19 @@ function replaceContent(content,json){
                inlinejs += '<script>lsloader.runInlineScript("ls-loader-inlinerun'+inlinejsCount+'","ls-loader-inlinecode'+inlinejsCount+'")</script>'
            }
         return inlinejs.replace(/<!--js inline build-->[\s|\S]*?<!--js inline endbuild-->/,'');
+    })
+
+    // 外域js 不缓存，只异步加载
+    var tagload = 0;
+    content= content.replace(/<!--js scriptload build-->[\s|\S]*?<!--js scriptload endbuild-->/g,function(cssOrginCodes){
+        var insideHrefs = cssOrginCodes.match(/[^'"]*\.js/g);//console.log(insideHrefs)
+        if(insideHrefs){ //match out href="test.js"
+            for(var i in insideHrefs ){
+                tagload++;
+                cssOrginCodes+='<script id="ls-loader-tagload'+tagload+'"></script><script>lsloader.jsfallback("'+insideHrefs[i]+'","ls-loader-tagload'+tagload+'" )</script>'
+            }
+        }
+        return cssOrginCodes.replace(/<!--js scriptload build-->[\s|\S]*?<!--js scriptload endbuild-->/,'');
     })
 
     //替换lsloader.js入行内
