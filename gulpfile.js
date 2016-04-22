@@ -31,7 +31,10 @@ gulp.task('build',['copy'], function () {
 });
 
 gulp.task('lsload',function(){
-      require('./gulptask/templateBuild').run()
+      require('./gulptask/templateBuild').run({
+          path:['./build/html/'
+          ]
+      })
 })
 
 gulp.task('default',['clean','copy','build'],function(){

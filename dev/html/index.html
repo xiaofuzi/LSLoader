@@ -1,8 +1,11 @@
 <html>
 
 <head>
+<script>
+    document.documentElement.style.display='none';
+</script>
 
-    <!--lsloder build--><!--lsloder build-->
+    <!--lsloder build--><!--lsloder endbuild-->
 
 
 <!--css ls build-->
@@ -11,8 +14,12 @@
 
 <!--css ls build-->
 <link rel="stylesheet" type="text/css" href='../css/page2.css'>
-<link rel="stylesheet" type="text/css" href='../css/page3.css'>
+    <!--css ls endbuild-->
+
+    <!--css ls build-->
+<link rel="stylesheet" type="text/css" href='../css/page3.css' onload="document.documentElement.style.display='';">
 <!--css ls endbuild-->
+
 
 <!--css ls build-->
 <link rel="stylesheet">
@@ -23,9 +30,9 @@
 
 <div id="container"></div>
 
-<!--js scriptload build-->
+<!--js tagload build-->
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-<!--js scriptload endbuild-->
+<!--js tagload endbuild-->
 
 <!--js inline build-->
 <script>
@@ -34,8 +41,17 @@ console.log('bat')
 <!--js inline endbuild-->
 
 <!--js ls build-->
+<script src='../js/r.js'></script>
+<!--js ls endbuild-->
+
+<!--js ls build-->
 <script src='../js/jquery.js'></script>
 <!--js ls endbuild-->
+
+<!--js ls build-->
+<script src='../js/AmdModule.js'></script>
+<!--js ls endbuild-->
+
 
 <!--js inline build-->
 <script>$(document.body).append('<div>????</div>');
@@ -46,9 +62,8 @@ console.log('?')
 <!--js ls build-->
 <script src='../js/index.js'></script>
 <!--js ls endbuild-->
-<!--js ls build-->
-<script src='../js/fastclick.js'></script>
-<!--js ls endbuild-->
+
+
 </body>
 
 

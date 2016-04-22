@@ -4,6 +4,7 @@
  * lsloader.load(name,path)
  * name  根据路径生成的唯一localStorage key
  * path 线上的打包后文件路径
+ * onload css 文件加载完成后回调 用于避免异步css造成的reflow
  */
 
 (function(){
@@ -16,7 +17,8 @@
     };
 
     //读取资源到模板中
-    lsloader.load = function(jsname,jspath){
+    lsloader.load = function(jsname,jspath,cssonload){
+        cssonload = cssonload || function(){};
         var code;
         try{
             code = localStorage.getItem(jsname);
@@ -25,7 +27,7 @@
         }
         if(!/\/\*codestartv1\*\//.test(code)){   //ls 版本 codestartv1 每次换这个版本 所有ls作废
             this.removeLS(jsname);
-            this.requestResource(jsname,jspath);
+            this.requestResource(jsname,jspath,cssonload);
             return
         }
         //取出对应文件名下的code
@@ -33,7 +35,7 @@
             var versionNumber = code.split('/*codestartv1*/')[0]; //取出路径版本号 如果要加载的和ls里的不同,清理,重写
             if(versionNumber!=jspath){
                 this.removeLS(jsname);
-                this.requestResource(jsname,jspath);
+                this.requestResource(jsname,jspath,cssonload);
                 return
             }
             code = code.split('/*codestartv1*/')[1];
@@ -41,11 +43,12 @@
                 this.jsRunSequence.push({name:jsname,code:code})
                 this.runjs(jspath,jsname,code);
             }else{
-                document.getElementById(jsname).appendChild(document.createTextNode(code))
+                document.getElementById(jsname).appendChild(document.createTextNode(code));
+                cssonload();
             }
         }else{
             //null xhr获取资源
-            this.requestResource(jsname,jspath);
+            this.requestResource(jsname,jspath,cssonload);
         }
     };
     //卸载storage中的资源
@@ -53,7 +56,7 @@
         localStorage.removeItem(key)
     };
 
-    lsloader.requestResource = function(name,path){
+    lsloader.requestResource = function(name,path,cssonload){
         if(/\.js$/.test(path)) {
             var that = this
             this.iojs(path,name,function(path,name,code){
@@ -70,7 +73,7 @@
                     localStorage.setItem(name,path+'/*codestartv1*/'+code);
                 }catch(e){
                 }
-            })
+            },cssonload)
         }
 
     };
@@ -100,7 +103,7 @@
 
     };
 
-    lsloader.iocss = function(path,jsname,callback){
+    lsloader.iocss = function(path,jsname,callback,cssonload){
         var that = this;
         try{
             var xhr = new XMLHttpRequest();
@@ -110,22 +113,23 @@
                     if((xhr.status >=200 && xhr.status < 300 ) || xhr.status == 304){
                         if(xhr.response!=''){
                             callback(xhr.response);
+                            cssonload();
                             return;
                         }
                     }
-                    that.cssfallback(path,jsname);
+                    that.cssfallback(path,jsname,cssonload);
                 }
             };
             xhr.send(null);
 
         }catch(e){
-            that.cssfallback(path,jsname);
+            that.cssfallback(path,jsname,cssonload);
         }
 
     };
 
     lsloader.runjs = function(path,name,code){
-        if(!!path&&!!name&&!!code) {    //如果有path name code ,xhr来的结果,写入ls 否则是script.onload调用
+        if(!!name&&!!code) {    //如果有 name code ,xhr来的结果,写入ls 否则是script.onload调用
             for (var k in this.jsRunSequence) {
                 if (this.jsRunSequence[k].name == name) {
                     this.jsRunSequence[k].code = code;
@@ -153,7 +157,7 @@
             root.parentNode.insertBefore(script, root);
         }
     }
-
+    //<script src=''>页面阻塞下载转为异步加载流,防止同步改异步后破坏js运行顺序
     lsloader.tagLoad = function(path,name){
         this.jsRunSequence.push({name:name,code:'',path:path,status:'failed'});
         this.runjs();
@@ -161,11 +165,11 @@
 
     //js回退加载 this.jsnamemap[name] 存在 证明已经在队列中 放弃
     lsloader.jsfallback = function(path,name){
-            if(!!this.jsnamemap[name]){
-                return;
-            }else{
-                this.jsnamemap[name]=name;
-            }
+        if(!!this.jsnamemap[name]){
+            return;
+        }else{
+            this.jsnamemap[name]=name;
+        }
         //jsRunSequence队列中 找到fail的文件,标记他,等到runjs循环用script请求
         for (var k in this.jsRunSequence) {
             if (this.jsRunSequence[k].name == name) {
@@ -176,7 +180,7 @@
         }
         this.runjs();
     };
-    lsloader.cssfallback =function(path,name){
+    lsloader.cssfallback =function(path,name,cssonload){
         if(!!this.cssnamemap[name]){
             return;
         }else{
@@ -186,6 +190,7 @@
         link.type='text/css';
         link.href=path;
         link.rel='stylesheet';
+        link.onload = link.onerror = cssonload;
         var root = document.getElementsByTagName('script')[0];
         root.parentNode.insertBefore(link, root)
     }
@@ -193,8 +198,8 @@
 
     lsloader.runInlineScript = function(scriptId,codeId){
         var code = document.getElementById(codeId).innerText;
-         this.jsRunSequence.push({name:scriptId,code:code})
-         this.runjs()
+        this.jsRunSequence.push({name:scriptId,code:code})
+        this.runjs()
     }
 
 })()/**

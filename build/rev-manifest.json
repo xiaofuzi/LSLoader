@@ -2,8 +2,8 @@
   "../css/main.css": "css/main-4f96fa1ada.css",
   "../css/page2.css": "css/page2-9233b55c22.css",
   "../css/page3.css": "css/page3-4c74aa09a8.css",
-  "../js/fastclick.js": "js/fastclick-348e8477b5.js",
-  "../js/index.js": "js/index-45fecb8b9d.js",
+  "../js/AmdModule.js": "js/AmdModule-2b5d6f3d70.js",
+  "../js/index.js": "js/index-589a250b6a.js",
   "../js/jquery.js": "js/jquery-93d54dec1e.js",
-  "../js/lib/lsloader.js": "js/lib/lsloader-62e220ce0a.js"
+  "../js/r.js": "js/r-f472e5b32b.js"
 }
