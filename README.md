@@ -13,26 +13,28 @@ lsloder build
  添加库文件
 
 css ls build
-<li\nk rel="stylesheet" type="text/css" href='../css/page3.css' onload="document.documentElement.style.display='';">
+link rel="stylesheet" type="text/css" href='../css/page3.css' onload="document.documentElement.style.display='';"
 css ls endbuild
 
 css引入 缓存 onload一定要加双引号 
 
 js ls build
-<scr\ipt src='../js/jquery.js'></script>
+script src='../js/jquery.js'
 js ls endbuild
 js xhr引入 缓存
 
  js tagload build
-<s\cript src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></scri\pt>
+script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'
 js tagload endbuild
 
 外站js script tag 引入
 
 js inline build
-<s\cript>$(document.body).append('<div>????</div>');
+
+script$(document.body).append('<div>????</div>');
 console.log('?')
-</s\cript>
+script
+
 js inline endbuild
 
 内联脚本运行
