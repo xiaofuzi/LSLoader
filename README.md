@@ -12,26 +12,26 @@ build/html下即可看到打包localStorage的模版
  <!--lsloder build--><!--lsloder endbuild--> 
  添加库文件
  
-    <!--css ls build-->
+    \<!--css ls build-->
 <link rel="stylesheet" type="text/css" href='../css/page3.css' onload="document.documentElement.style.display='';">
-<!--css ls endbuild-->
+\<!--css ls endbuild-->
 css引入 缓存 onload一定要加双引号 
 
-<!--js ls build-->
+\<!--js ls build-->
 <script src='../js/jquery.js'></script>
-<!--js ls endbuild-->
+\<!--js ls endbuild-->
 js xhr引入 缓存
 
-<!--js tagload build-->
+\<!--js tagload build-->
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-<!--js tagload endbuild-->
+\<!--js tagload endbuild-->
 外站js script tag 引入
 
-<!--js inline build-->
+\<!--js inline build-->
 <script>$(document.body).append('<div>????</div>');
 console.log('?')
 </script>
-<!--js inline endbuild-->
+\<!--js inline endbuild-->
 内联脚本运行
 
 
