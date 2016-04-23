@@ -171,7 +171,11 @@
             var script= document.createElement('script');
             var root = document.getElementsByTagName('script')[0];
             script.appendChild(document.createTextNode(this.jsRunSequence[0].code));
-            root.parentNode.insertBefore(script, root)
+            root.parentNode.insertBefore(script, root);
+            this.jsRunSequence.shift();
+            if(this.jsRunSequence.length>0) {
+                this.runjs();
+            }
         }
     }
     //<script src=''>页面阻塞下载转为异步加载流,防止同步改异步后破坏js运行顺序
@@ -222,18 +226,27 @@
     lsloader.loadCombo = function(jslist){
         var updateList = '';// 待更新combo模块列表
         for (var k in jslist){
-            var version = this.getLS(jslist.name).split('/*codestartv1*/')[1]
-            var code = this.getLS(jslist.name).split('/*codestartv1*/')[0]
-            if(version == jslist.path){
-                this.jsRunSequence.push({name:jslist.name,code:code,path:jslist.path})
+            var LS = this.getLS(jslist[k].name);
+            if(!!LS){
+                var version = LS.split('/*codestartv1*/')[0]
+                var code = LS.split('/*codestartv1*/')[1]
             }else{
-                updateList+=updateList==''?'':'&'+jsList.path;
+                var version = '';
+            }
+            if(version == jslist[k].path){
+                this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path}) // 缓存有效 代码加入runSequence
+            }else{
+                this.jsRunSequence.push({name:jslist[k].name,path:jslist[k].path,status:'loading'}) //  缓存无效 代码加入运行队列 状态loading
+                updateList+=(updateList==''?'':'&')+jslist[k].path;
             }
         }
-        var script = document.createElement('script');
-        script.src = 'http://combo?'+updateList;
-        var root = document.getElementsByTagName('script')[0];
-        root.parentNode.insertBefore(script, root)
+        if(!!updateList){
+            var script = document.createElement('script');
+            script.src = 'http://combo?'+updateList;
+            var that = this;
+            var root = document.getElementsByTagName('script')[0];
+            root.parentNode.insertBefore(script, root)
+        }
         this.runjs();
     }
     lsloader.runCombo = function(name,path,code){
@@ -243,6 +256,7 @@
                 this.jsRunSequence[k].code = code;
             }
         }
+        this.setLS(name,path+'/*codestartv1*/'+code);
 
         this.runjs();
     }

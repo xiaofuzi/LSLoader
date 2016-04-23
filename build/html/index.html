@@ -229,18 +229,24 @@
     lsloader.loadCombo = function(jslist){
         var updateList = '';// 待更新combo模块列表
         for (var k in jslist){
-            var version = this.getLS(jslist.name).split('/*codestartv1*/')[1]
-            var code = this.getLS(jslist.name).split('/*codestartv1*/')[0]
-            if(version == jslist.path){
-                this.jsRunSequence.push({name:jslist.name,code:code,path:jslist.path})
+            var version = this.getLS(jslist[k].name).split('/*codestartv1*/')[0]
+            var code = this.getLS(jslist[k].name).split('/*codestartv1*/')[1]
+            if(version == jslist[k].path){
+                this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path}) // 缓存有效 代码加入runSequence
             }else{
-                updateList+=updateList==''?'':'&'+jsList.path;
+                this.jsRunSequence.push({name:jslist[k].name,path:jslist[k].path,status:'loading'}) //  缓存无效 代码加入运行队列 状态loading
+                updateList+=(updateList==''?'':'&')+jslist[k].path;
             }
         }
-        var script = document.createElement('script');
-        script.src = 'http://combo?'+updateList;
-        var root = document.getElementsByTagName('script')[0];
-        root.parentNode.insertBefore(script, root)
+        if(!!updateList){
+            var script = document.createElement('script');
+            script.src = 'http://combo?'+updateList;
+            script.onload = script.onerror = function(){
+                this.runjs();
+            }
+            var root = document.getElementsByTagName('script')[0];
+            root.parentNode.insertBefore(script, root)
+        }
         this.runjs();
     }
     lsloader.runCombo = function(name,path,code){
@@ -250,6 +256,7 @@
                 this.jsRunSequence[k].code = code;
             }
         }
+        this.setLS(name,code);
 
         this.runjs();
     }
