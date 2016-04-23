@@ -16,15 +16,35 @@
         cssnamemap:{}      //css name map 防fallback 重复请求资源
     };
 
+    //封装LocalStorage方法
+    lsloader.removeLS = function(key){
+        try{
+            localStorage.removeItem(key)
+        }catch (e){}
+    };
+    lsloader.setLS = function (key,val){
+        try{
+            localStorage.setItem(key,val);
+        }catch(e){
+        }
+    }
+    lsloader.getLS = function(key){
+        var val = ''
+        try{
+            val = localStorage.getItem(key);
+        }catch (e){
+            val = '';
+        }
+        return val
+    }
+
+
     //读取资源到模板中
     lsloader.load = function(jsname,jspath,cssonload){
         cssonload = cssonload || function(){};
         var code;
-        try{
-            code = localStorage.getItem(jsname);
-        }catch (e){
-            code = '';
-        }
+        code = this.getLS(jsname);
+
         if(!/\/\*codestartv1\*\//.test(code)){   //ls 版本 codestartv1 每次换这个版本 所有ls作废
             this.removeLS(jsname);
             this.requestResource(jsname,jspath,cssonload);
@@ -51,28 +71,19 @@
             this.requestResource(jsname,jspath,cssonload);
         }
     };
-    //卸载storage中的资源
-    lsloader.removeLS = function(key){
-        localStorage.removeItem(key)
-    };
+
 
     lsloader.requestResource = function(name,path,cssonload){
+        var that = this
         if(/\.js$/.test(path)) {
-            var that = this
             this.iojs(path,name,function(path,name,code){
-                try {
-                    localStorage.setItem(name, path + '/*codestartv1*/' + code);
-                } catch (e) {
-                }
+                that.setLS(name,path+'/*codestartv1*/'+code)
                 that.runjs(path,name,code);
             })
         }else if(/\.css$/.test(path)){
             this.iocss(path,name,function(code){
                 document.getElementById(name).appendChild(document.createTextNode(code));
-                try{
-                    localStorage.setItem(name,path+'/*codestartv1*/'+code);
-                }catch(e){
-                }
+                that.setLS(name,path+'/*codestartv1*/'+code)
             },cssonload)
         }
 

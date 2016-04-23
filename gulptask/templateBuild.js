@@ -1,6 +1,6 @@
 //遍历模版文件
 
-var staticPath=''   //要附加的静态路径
+var staticPath='../'   //要附加的静态路径
 
 var fs=require("fs");
 function compileFile(json,paths){
@@ -54,9 +54,9 @@ function replaceContent(content,json){
                     }
 
                     if(onload){
-                        cssOrginCodes+='<style id="'+json[insideHrefs[i]]+'"></style><script>lsloader.load("'+json[insideHrefs[i]]+'","'+insideHrefs[i]+'",'+onload+' )</script>'
+                        cssOrginCodes+='<style id="'+insideHrefs[i]+'"></style><script>lsloader.load("'+insideHrefs[i]+'","'+json[insideHrefs[i]]+'",'+onload+' )</script>'
                     }else{
-                        cssOrginCodes+='<style id="'+json[insideHrefs[i]]+'"></style><script>lsloader.load("'+json[insideHrefs[i]]+'","'+insideHrefs[i]+'" )</script>'
+                        cssOrginCodes+='<style id="'+insideHrefs[i]+'"></style><script>lsloader.load("'+insideHrefs[i]+'","'+json[insideHrefs[i]]+'" )</script>'
                     }
 
                 }
@@ -71,7 +71,7 @@ function replaceContent(content,json){
         if(insideHrefs){ //match out href="test.css"
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
-                    cssOrginCodes+='<script id="'+json[insideHrefs[i]]+'"></script><script>lsloader.load("'+json[insideHrefs[i]]+'","'+insideHrefs[i]+'" )</script>'
+                    cssOrginCodes+='<script id="'+insideHrefs[i]+'"></script><script>lsloader.load("'+insideHrefs[i]+'","'+json[insideHrefs[i]]+'" )</script>'
                 }
             }
         }
@@ -121,7 +121,9 @@ exports.run=function(args){
     var json
     var data = fs.readFileSync("./build/rev-manifest.json","utf-8")
     data = JSON.parse(data)
-
+    for(var i in data){
+        data[i] = staticPath + data[i];
+    }
     compileFile(data,path)
     console.log('templatebuild success')
 }

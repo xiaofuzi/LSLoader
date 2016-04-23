@@ -23,15 +23,35 @@
         cssnamemap:{}      //css name map 防fallback 重复请求资源
     };
 
+    //封装LocalStorage方法
+    lsloader.removeLS = function(key){
+        try{
+            localStorage.removeItem(key)
+        }catch (e){}
+    };
+    lsloader.setLS = function (key,val){
+        try{
+            localStorage.setItem(key,val);
+        }catch(e){
+        }
+    }
+    lsloader.getLS = function(key){
+        var val = ''
+        try{
+            val = localStorage.getItem(key);
+        }catch (e){
+            val = '';
+        }
+        return val
+    }
+
+
     //读取资源到模板中
     lsloader.load = function(jsname,jspath,cssonload){
         cssonload = cssonload || function(){};
         var code;
-        try{
-            code = localStorage.getItem(jsname);
-        }catch (e){
-            code = '';
-        }
+        code = this.getLS(jsname);
+
         if(!/\/\*codestartv1\*\//.test(code)){   //ls 版本 codestartv1 每次换这个版本 所有ls作废
             this.removeLS(jsname);
             this.requestResource(jsname,jspath,cssonload);
@@ -58,28 +78,19 @@
             this.requestResource(jsname,jspath,cssonload);
         }
     };
-    //卸载storage中的资源
-    lsloader.removeLS = function(key){
-        localStorage.removeItem(key)
-    };
+
 
     lsloader.requestResource = function(name,path,cssonload){
+        var that = this
         if(/\.js$/.test(path)) {
-            var that = this
             this.iojs(path,name,function(path,name,code){
-                try {
-                    localStorage.setItem(name, path + '/*codestartv1*/' + code);
-                } catch (e) {
-                }
+                that.setLS(name,path+'/*codestartv1*/'+code)
                 that.runjs(path,name,code);
             })
         }else if(/\.css$/.test(path)){
             this.iocss(path,name,function(code){
                 document.getElementById(name).appendChild(document.createTextNode(code));
-                try{
-                    localStorage.setItem(name,path+'/*codestartv1*/'+code);
-                }catch(e){
-                }
+                that.setLS(name,path+'/*codestartv1*/'+code)
             },cssonload)
         }
 
@@ -214,11 +225,11 @@
  */</script>
 
 
-<style id="css/main-4f96fa1ada.css"></style><script>lsloader.load("css/main-4f96fa1ada.css","../css/main.css" )</script>
+<style id="../css/main.css"></style><script>lsloader.load("../css/main.css","../css/main-4f96fa1ada.css" )</script>
 
-<style id="css/page2-9233b55c22.css"></style><script>lsloader.load("css/page2-9233b55c22.css","../css/page2.css" )</script>
+<style id="../css/page2.css"></style><script>lsloader.load("../css/page2.css","../css/page2-9233b55c22.css" )</script>
 
-    <style id="css/page3-4c74aa09a8.css"></style><script>lsloader.load("css/page3-4c74aa09a8.css","../css/page3.css",function(){document.documentElement.style.display='';} )</script>
+    <style id="../css/page3.css"></style><script>lsloader.load("../css/page3.css","../css/page3-4c74aa09a8.css",function(){document.documentElement.style.display='';} )</script>
 
 
 
@@ -234,18 +245,18 @@
 console.log('bat')
 </textarea><script id="ls-loader-inlinerun1"></script><script>lsloader.runInlineScript("ls-loader-inlinerun1","ls-loader-inlinecode1")</script>
 
-<script id="js/r-f472e5b32b.js"></script><script>lsloader.load("js/r-f472e5b32b.js","../js/r.js" )</script>
+<script id="../js/r.js"></script><script>lsloader.load("../js/r.js","../js/r-f472e5b32b.js" )</script>
 
-<script id="js/jquery-93d54dec1e.js"></script><script>lsloader.load("js/jquery-93d54dec1e.js","../js/jquery.js" )</script>
+<script id="../js/jquery.js"></script><script>lsloader.load("../js/jquery.js","../js/jquery-93d54dec1e.js" )</script>
 
-<script id="js/AmdModule-2b5d6f3d70.js"></script><script>lsloader.load("js/AmdModule-2b5d6f3d70.js","../js/AmdModule.js" )</script>
+<script id="../js/AmdModule.js"></script><script>lsloader.load("../js/AmdModule.js","../js/AmdModule-2b5d6f3d70.js" )</script>
 
 
 <textarea style="display:none" id="ls-loader-inlinecode2">$(document.body).append('<div>????</div>');
 console.log('?')
 </textarea><script id="ls-loader-inlinerun2"></script><script>lsloader.runInlineScript("ls-loader-inlinerun2","ls-loader-inlinecode2")</script>
 
-<script id="js/index-589a250b6a.js"></script><script>lsloader.load("js/index-589a250b6a.js","../js/index.js" )</script>
+<script id="../js/index.js"></script><script>lsloader.load("../js/index.js","../js/index-589a250b6a.js" )</script>
 
 
 </body>
