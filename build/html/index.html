@@ -18,7 +18,7 @@
 
 
     window.lsloader = {
-        jsRunSequence:[], //js 运行队列 {name:代码name,code:代码,status:状态 failed/loading,path:线上路径}
+        jsRunSequence:[], //js 运行队列 {name:代码name,code:代码,status:状态 failed/loading/comboJS,path:线上路径}
         jsnamemap:{},     //js name map 防fallback 重复请求资源
         cssnamemap:{}      //css name map 防fallback 重复请求资源
     };
@@ -154,7 +154,7 @@
                 }
             }
         }
-        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''){ //每次进入runjs检查,如果第一项有代码,执行并剔除队列,回调
+        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''&&!this.jsRunSequence[0].status){ //每次进入runjs检查,如果第一项有代码,执行并剔除队列,回调
             document.getElementById(this.jsRunSequence[0].name).appendChild(document.createTextNode(this.jsRunSequence[0].code));
             this.jsRunSequence.shift();
             if(this.jsRunSequence.length>0) {
@@ -173,6 +173,12 @@
             };
             var root = document.getElementsByTagName('script')[0];
             root.parentNode.insertBefore(script, root);
+        }else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=='comboJS'){
+               // 运行comboJS 中间的组件
+            var script= document.createElement('script');
+            var root = document.getElementsByTagName('script')[0];
+            script.appendChild(document.createTextNode(this.jsRunSequence[0].code));
+            root.parentNode.insertBefore(script, root)
         }
     }
     //<script src=''>页面阻塞下载转为异步加载流,防止同步改异步后破坏js运行顺序
@@ -218,6 +224,34 @@
         var code = document.getElementById(codeId).innerText;
         this.jsRunSequence.push({name:scriptId,code:code})
         this.runjs()
+    }
+    //jslist [{name:名称,path:线上路径}]
+    lsloader.loadCombo = function(jslist){
+        var updateList = '';// 待更新combo模块列表
+        for (var k in jslist){
+            var version = this.getLS(jslist.name).split('/*codestartv1*/')[1]
+            var code = this.getLS(jslist.name).split('/*codestartv1*/')[0]
+            if(version == jslist.path){
+                this.jsRunSequence.push({name:jslist.name,code:code,path:jslist.path})
+            }else{
+                updateList+=updateList==''?'':'&'+jsList.path;
+            }
+        }
+        var script = document.createElement('script');
+        script.src = 'http://combo?'+updateList;
+        var root = document.getElementsByTagName('script')[0];
+        root.parentNode.insertBefore(script, root)
+        this.runjs();
+    }
+    lsloader.runCombo = function(name,path,code){
+        for (var k in this.jsRunSequence) {
+            if (this.jsRunSequence[k].name == name) {
+                this.jsRunSequence[k].status = 'comboJS';
+                this.jsRunSequence[k].code = code;
+            }
+        }
+
+        this.runjs();
     }
 
 })()/**
