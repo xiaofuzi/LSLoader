@@ -147,8 +147,11 @@
                 }
             }
         }
-        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''&&!this.jsRunSequence[0].status){ //每次进入runjs检查,如果第一项有代码,执行并剔除队列,回调
-            document.getElementById(this.jsRunSequence[0].name).appendChild(document.createTextNode(this.jsRunSequence[0].code));
+        if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].code!=''&&this.jsRunSequence[0].status!='failed'){ //每次进入runjs检查,如果第一项有代码,执行并剔除队列,回调
+            var script= document.createElement('script');
+            var root = document.getElementsByTagName('script')[0];
+            script.appendChild(document.createTextNode(this.jsRunSequence[0].code));
+            root.parentNode.insertBefore(script, root);
             this.jsRunSequence.shift();
             if(this.jsRunSequence.length>0) {
                 this.runjs();
@@ -166,16 +169,6 @@
             };
             var root = document.getElementsByTagName('script')[0];
             root.parentNode.insertBefore(script, root);
-        }else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=='comboJS'){
-               // 运行comboJS 中间的组件
-            var script= document.createElement('script');
-            var root = document.getElementsByTagName('script')[0];
-            script.appendChild(document.createTextNode(this.jsRunSequence[0].code));
-            root.parentNode.insertBefore(script, root);
-            this.jsRunSequence.shift();
-            if(this.jsRunSequence.length>0) {
-                this.runjs();
-            }
         }
     }
     //<script src=''>页面阻塞下载转为异步加载流,防止同步改异步后破坏js运行顺序
@@ -238,7 +231,7 @@
                 this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path}) // 缓存有效 代码加入runSequence
             }else{
                 this.jsRunSequence.push({name:jslist[k].name,path:jslist[k].path,status:'comboloading'}) //  缓存无效 代码加入运行队列 状态loading
-                requestingModules[jslist[k].name] == true;
+                requestingModules[jslist[k].name] = true;
                 updateList+=(updateList==''?'':'&')+jslist[k].path;
             }
         }
@@ -272,11 +265,10 @@
             if ( !!requestingModules[this.jsRunSequence[k].name]) {
                 this.jsRunSequence[k].status = 'comboJS';
                 this.jsRunSequence[k].code = comboCode[0];
+                this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+'/*codestartv1*/'+comboCode[0]);
                 comboCode.shift();
             }
         }
-        this.setLS(name,path+'/*codestartv1*/'+code);
-
         this.runjs();
     }
 
