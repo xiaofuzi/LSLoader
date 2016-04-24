@@ -225,6 +225,7 @@
     //jslist [{name:名称,path:线上路径}]
     lsloader.loadCombo = function(jslist){
         var updateList = '';// 待更新combo模块列表
+        var requestingModules = {};//存储本次更新map
         for (var k in jslist){
             var LS = this.getLS(jslist[k].name);
             if(!!LS){
@@ -236,24 +237,42 @@
             if(version == jslist[k].path){
                 this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path}) // 缓存有效 代码加入runSequence
             }else{
-                this.jsRunSequence.push({name:jslist[k].name,path:jslist[k].path,status:'loading'}) //  缓存无效 代码加入运行队列 状态loading
+                this.jsRunSequence.push({name:jslist[k].name,path:jslist[k].path,status:'comboloading'}) //  缓存无效 代码加入运行队列 状态loading
+                requestingModules[jslist[k].name] == true;
                 updateList+=(updateList==''?'':'&')+jslist[k].path;
             }
         }
-        if(!!updateList){
-            var script = document.createElement('script');
-            script.src = 'http://combo?'+updateList;
-            var that = this;
-            var root = document.getElementsByTagName('script')[0];
-            root.parentNode.insertBefore(script, root)
-        }
+        var that = this;
+        var xhr = new XMLHttpRequest();
+        xhr.open("get",updateList,true);
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState == 4){
+                if((xhr.status >=200 && xhr.status < 300 ) || xhr.status == 304){
+                    if(xhr.response!=''){
+                        that.runCombo(xhr.response,requestingModules);
+                        return;
+                    }
+                }else{
+                    for(var i in that.jsRunSequence){
+                       if( requestingModules[that.jsRunSequence[i].name]){
+                           that.jsRunSequence[i].status = 'failed'
+                       }
+                    }
+                    that.runjs();
+                }
+            }
+        };
+        xhr.send(null);
         this.runjs();
     }
-    lsloader.runCombo = function(name,path,code){
+    lsloader.runCombo = function(comboCode,requestingModules){
+        comboCode = comboCode.split('/*combojs*/');
+        comboCode.shift();//去除首个空code
         for (var k in this.jsRunSequence) {
-            if (this.jsRunSequence[k].name == name) {
+            if ( !!requestingModules[this.jsRunSequence[k].name]) {
                 this.jsRunSequence[k].status = 'comboJS';
-                this.jsRunSequence[k].code = code;
+                this.jsRunSequence[k].code = comboCode[0];
+                comboCode.shift();
             }
         }
         this.setLS(name,path+'/*codestartv1*/'+code);
