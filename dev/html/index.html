@@ -7,6 +7,11 @@
 
     <!--lsloder build--><!--lsloder endbuild-->
 
+    <!--js inline build-->
+    <script>
+        window.TimeStr = (new Date()).getTime()
+    </script>
+    <!--js inline endbuild-->
 
 <!--css ls build-->
 <link rel="stylesheet" type="text/css" href="../css/main.css">
@@ -21,12 +26,9 @@
 <!--css ls endbuild-->
 
 
-<!--css ls build-->
-<link rel="stylesheet">
-<!--css ls endbuild-->
-
 </head>
 <body>
+
 
 <div id="container"></div>
 
@@ -34,11 +36,7 @@
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 <!--js tagload endbuild-->
 
-<!--js inline build-->
-<script>
-console.log('bat')
-</script>
-<!--js inline endbuild-->
+
 
 <!--js ls build-->
 <script src='../js/r.js'></script>
@@ -48,21 +46,20 @@ console.log('bat')
 <script src='../js/jquery.js'></script>
 <!--js ls endbuild-->
 
-<!--js ls build-->
-<script src='../js/AmdModule.js'></script>
-<!--js ls endbuild-->
+<<<<<<< HEAD
+<script src="http://webapi.amap.com/maps?v=1.3&key=3f3868abdb36336114bde5ab6eecdb68"></script>
 
+=======
+>>>>>>> 2f70e640e9d2ac01ef963088f39187275e09d9c6
+<!--js ls AMDModule build-->
+<script src='../js/index.js'></script>
+<!--js ls AMDModule endbuild-->
 
 <!--js inline build-->
 <script>$(document.body).append('<div>????</div>');
-console.log('?')
+console.log('可操作时间:'+((new Date()).getTime()-TimeStr))+'ms'
 </script>
 <!--js inline endbuild-->
-
-<!--js ls build-->
-<script src='../js/index.js'></script>
-<!--js ls endbuild-->
-
 
 </body>
 

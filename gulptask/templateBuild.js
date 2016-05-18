@@ -1,8 +1,46 @@
 //遍历模版文件
 
 var staticPath='../'   //要附加的静态路径
+//json地址
+var jsonPath = './build/rev-manifest.json';
+//AST语法分析AMD模块
+var ASTbuild = require('./ASTbuild');
+//dev 压缩后js路径
+var devjs = ['./build/js/'];
 
 var fs=require("fs");
+
+//所有js添加combo头信息
+function addJSHead(paths){
+    paths.forEach(function (path) {
+        _walk(path)
+    })
+
+    function _walk(path) {
+        fs.readdir(path, function (err, files) {
+
+            files.forEach(function(item) {
+                if(fs.statSync(path+item).isFile()){
+                    _fileReplace(path,item) ;
+                }
+                if(fs.statSync(path+item).isDirectory()){
+                    _walk(path+item+'/')
+                }
+            })
+        })
+    }
+    function _fileReplace(path,item) {
+        fs.readdir(path, function (err, files) {
+
+                    var content = fs.readFileSync(path + item, "utf-8")
+                    content = '/*combojs*/'+content
+                    fs.writeFileSync(path + item, content, "utf-8")
+
+        })
+    }
+}
+
+
 function compileFile(json,paths){
     paths.forEach(function (path) {
         walk(path)
@@ -71,7 +109,7 @@ function replaceContent(content,json){
         if(insideHrefs){ //match out href="test.css"
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
-                    cssOrginCodes+='<script id="'+insideHrefs[i]+'"></script><script>lsloader.load("'+insideHrefs[i]+'","'+json[insideHrefs[i]]+'" )</script>'
+                    cssOrginCodes+='<script>lsloader.load("'+insideHrefs[i]+'","'+json[insideHrefs[i]]+'" )</script>'
                 }
             }
         }
@@ -105,8 +143,26 @@ function replaceContent(content,json){
 
     //替换lsloader.js入行内
     content= content.replace(/<!--lsloder build-->[\s|\S]*?<!--lsloder endbuild-->/,function(cssOrginCodes){
-        var content = fs.readFileSync('./gulptask/lsloader.js',"utf-8")
+        var content = fs.readFileSync('./build/js/lib/lsloader.js',"utf-8")
         return cssOrginCodes.replace(/<!--lsloder build-->[\s|\S]*?<!--lsloder endbuild-->/,'<script>'+content+'</script>');
+    })
+
+
+    //替换AMD模块依赖分析后的脚本入行内
+    content= content.replace(/<!--js ls AMDModule build-->[\s|\S]*?<!--js ls AMDModule endbuild-->/,function(inlinejs){
+        var insideHrefs = inlinejs.match(/[^'|^"]*\.js/g)
+        if(insideHrefs[0]){
+            var fsPath = insideHrefs[0].replace('../','./dev/');//AMD文件本地地址
+            var AMDlist = ASTbuild.run(fsPath,'./dev/js/');
+            var inlinejs = '';
+            inlinejs+='<script>lsloader.loadCombo(['
+            for(var i in AMDlist){
+                inlinejs+= '{name:"'+AMDlist[i]+'",path:"'+json[AMDlist[i]].replace(staticPath,'')+'"},' //combo服务不要线上路径 要文件目录路径
+            }
+            inlinejs+='{name:"'+insideHrefs[0]+'",path:"'+json[insideHrefs[0]].replace(staticPath,'')+'"}' //最后加上入口文件
+            inlinejs+='])</script>'
+        }
+        return inlinejs.replace(/<!--js ls AMDModule build-->[\s|\S]*?<!--js ls AMDModule endbuild-->/,'');
     })
 
     return content
@@ -118,13 +174,14 @@ var exports = {};
 exports.run=function(args){
     var path = args.path;
 
-    var json
-    var data = fs.readFileSync("./build/rev-manifest.json","utf-8")
+
+    var data = fs.readFileSync(jsonPath,"utf-8")
     data = JSON.parse(data)
     for(var i in data){
         data[i] = staticPath + data[i];
     }
-    compileFile(data,path)
+    compileFile(data,path); //编译模版
+    addJSHead(devjs); //所有js添加头部信息
     console.log('templatebuild success')
 }
 

@@ -1,9 +1,28 @@
 {
   "../css/main.css": "css/main-4f96fa1ada.css",
   "../css/page2.css": "css/page2-9233b55c22.css",
+<<<<<<< HEAD
+  "../css/page3.css": "css/page3-fdc56dff1b.css",
+  "../css/webpack_reset.css": "css/webpack_reset-5c131dc58f.css",
+  "../js/AmdModule.js": "js/AmdModule-93b5544662.js",
+=======
   "../css/page3.css": "css/page3-4c74aa09a8.css",
-  "../js/AmdModule.js": "js/AmdModule-2b5d6f3d70.js",
-  "../js/index.js": "js/index-589a250b6a.js",
-  "../js/jquery.js": "js/jquery-93d54dec1e.js",
-  "../js/r.js": "js/r-f472e5b32b.js"
+  "../js/AmdModule.js": "js/AmdModule-b68b0c41d4.js",
+>>>>>>> 2f70e640e9d2ac01ef963088f39187275e09d9c6
+  "../js/common/commonDialog.js": "js/common/commonDialog-2ddfc1cdfc.js",
+  "../js/common/test.js": "js/common/test-9c740d7b0d.js",
+  "../js/index.js": "js/index-85c969fb73.js",
+  "../js/jquery.js": "js/jquery-aca795763d.js",
+<<<<<<< HEAD
+  "../js/lib/fastclick.js": "js/lib/fastclick-0e0e4cd5f7.js",
+  "../js/lib/gmu.js": "js/lib/gmu-52d3121884.js",
+  "../js/lib/lsloader.js": "js/lib/lsloader-9c7be3c50a.js",
+  "../js/lib/lsloader_sync.js": "js/lib/lsloader_sync-3b1b83a7e8.js",
+  "../js/r.js": "js/r-f7e1522255.js",
+  "../js/util/util.js": "js/util/util-75b2ec3dea.js",
+  "../js/webpack/timepicker.js": "js/webpack/timepicker-76251867d7.js"
+=======
+  "../js/r.js": "js/r-f7e1522255.js",
+  "../js/util/util.js": "js/util/util-75b2ec3dea.js"
+>>>>>>> 2f70e640e9d2ac01ef963088f39187275e09d9c6
 }

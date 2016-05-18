@@ -1,0 +1,1 @@
+/*combojs*/define("common/commonDialog",["util/util"],function(m){return{commonNumber:m.utilNumber+2}});

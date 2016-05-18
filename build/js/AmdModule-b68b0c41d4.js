@@ -1,0 +1,1 @@
+/*combojs*/define("AmdModule",["common/test"],function(n){return function(){$("body").append("AMDRunning:the test number is "+n.testNumber),$("body").append("</br>this is new version")}});

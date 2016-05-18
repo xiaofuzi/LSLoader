@@ -3,7 +3,7 @@ var rev = require('gulp-rev');
 
 var clean = require('gulp-clean');
 
-
+var uglify = require('gulp-uglify');
 
 
 
@@ -19,7 +19,15 @@ gulp.task('copy',['clean'],function(){
 
 })
 
-gulp.task('build',['copy'], function () {
+gulp.task('uglify',['clean','copy'], function() {
+  return  gulp.src(['build/**/*.js'])
+        .pipe(uglify())
+        .pipe(gulp.dest('build/'))
+});
+
+
+
+gulp.task('build',['clean','copy','uglify'], function () {
     // by default, gulp would pick `assets/css` as the base,
     // so we need to set it explicitly:
    return  gulp.src(['build/**/*.css', 'build/**/*.js'])
@@ -35,8 +43,9 @@ gulp.task('lsload',function(){
           path:['./build/html/'
           ]
       })
+
 })
 
-gulp.task('default',['clean','copy','build'],function(){
+gulp.task('default',['clean','copy','uglify','build'],function(){
    gulp.run('lsload')
 })
