@@ -8,7 +8,7 @@
  */
 
 (function(){
-    var combo = 'http://localhost:3000/combo?combo=';//线上combo服务地址,配置后可用AMDModule build缓存文件
+    var combo = 'http://'+location.host+'/combo?combo=';//线上combo服务地址,配置后可用AMDModule build缓存文件
 
     window.lsloader = {
         jsRunSequence:[], //js 运行队列 {name:代码name,code:代码,status:状态 failed/loading/comboJS,path:线上路径}
@@ -16,7 +16,10 @@
         cssnamemap:{}      //css name map 防fallback 重复请求资源
     };
 
-    //封装LocalStorage方法
+    /*
+    * 封装localStorage get set remove 方法
+    * try catch保证ls写满或者不支持本地缓存环境能继续运行js
+    * */
     lsloader.removeLS = function(key){
         try{
             localStorage.removeItem(key)
@@ -39,7 +42,15 @@
     }
 
 
-    //读取资源到模板中
+    /*
+     * load资源
+     * name 作为key path/分割符/代码值 作为value ,存储资源
+     * 如果value值中取出的版本号和线上模版的一致,命中缓存用本地,
+     * 否则 调用requestResource 请求资源
+     * jsname 文件name值,取相对路径,对应存在localStroage里的key
+     * jspath 文件线上路径,带md5版本号,用于加载资源,区分资源版本
+     * cssonload css加载成功时候调用,用于配合页面展现
+     * */
     lsloader.load = function(jsname,jspath,cssonload){
         cssonload = cssonload || function(){};
         var code;
@@ -73,6 +84,13 @@
     };
 
 
+    /*
+     * load请求资源
+     * 根据文件名尾部不同加载,js走runjs方法,加入运行队列中
+     * css 直接加载并且写入对应的<style>标签,根据style的顺序
+     * 保证css能正确覆盖规则 css 加载成功后调用cssonload 帮助控制
+     * 异步加载样式造车的dom树渲染错乱问题
+     * */
     lsloader.requestResource = function(name,path,cssonload){
         var that = this
         if(/\.js$/.test(path)) {
@@ -89,7 +107,10 @@
 
     };
 
-    //ajax 请求资源
+    /*
+    * iojs
+    * 请求js资源,失败后调用jsfallback
+    * */
     lsloader.iojs = function(path,jsname,callback){
         var that = this;
         that.jsRunSequence.push({name:jsname,code:''})
@@ -113,6 +134,11 @@
         }
 
     };
+
+    /*
+     * iocss
+     * 请求css资源,失败后调用cssfallback
+     * */
 
     lsloader.iocss = function(path,jsname,callback,cssonload){
         var that = this;
@@ -139,39 +165,60 @@
 
     };
 
+    /*
+     * runjs
+     * 运行js主方法
+     * path js线上路径
+     * name js相对路径
+     * code js代码
+     * */
+
     lsloader.runjs = function(path,name,code){
-        if(!!name&&!!code) {    //如果有 name code ,xhr来的结果,写入ls 否则是script.onload调用
+        //如果有 name code ,xhr来的结果,写入ls 否则是script.onload调用
+        if(!!name&&!!code) {
             for (var k in this.jsRunSequence) {
                 if (this.jsRunSequence[k].name == name) {
                     this.jsRunSequence[k].code = code;
                 }
             }
         }
-        if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!='failed'){ //每次进入runjs检查,如果第一项有代码,执行并剔除队列,回调
+
+        if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!='failed'){
+            //每次进入runjs检查jsRunSequence,如果第一项有代码并且状态没被置为failed,执行并剔除队列,回调
             var script= document.createElement('script');
             var root = document.getElementsByTagName('script')[0];
             script.appendChild(document.createTextNode(this.jsRunSequence[0].code));
             root.parentNode.insertBefore(script, root);
             this.jsRunSequence.shift();
+            //如果jsSequence还有排队的 继续运行
             if(this.jsRunSequence.length>0) {
                 this.runjs();
             }
+
         }else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=='failed'){
+            /*每次进入runjs检查jsRunSequence,如果第一项存在并且状态为failed,用script标签异步加载,
+             * 并且该项status置为loading 其他资源加载调用runjs时候就不会通过这个js项,等候完成
+             */
             var that = this;
             var script = document.createElement('script');
             script.src = this.jsRunSequence[0].path;
             this.jsRunSequence[0].status = 'loading'
             script.onload=function(){
                 that.jsRunSequence.shift();
+                //如果jsSequence还有排队的 继续运行
                 if(that.jsRunSequence.length>0){
-                    that.runjs(); //如果jsSequence还有排队的 继续运行
+                    that.runjs();
                 }
             };
             var root = document.getElementsByTagName('script')[0];
             root.parentNode.insertBefore(script, root);
         }
     }
-    //<script src=''>页面阻塞下载转为异步加载流,防止同步改异步后破坏js运行顺序
+    /*
+    * tagLoad 用script标签加载不支持xhr请求的js资源
+    * 方法时jsRunSequence队列中添加一项name path为该资源,但是status=failed的项
+    * runjs调用检查时就会把这个项当作失败取用script标签请求
+    * */
     lsloader.tagLoad = function(path,name){
         this.jsRunSequence.push({name:name,code:'',path:path,status:'failed'});
         this.runjs();
@@ -194,6 +241,12 @@
         }
         this.runjs();
     };
+    /*cssfallback 回退加载
+    * path   同上
+    * name   同上
+    * cssonload 同上
+    * xhr加载css失败的话 使用link标签异步加载样式,成功后调用cssonload
+    */
     lsloader.cssfallback =function(path,name,cssonload){
         if(!!this.cssnamemap[name]){
             return;
@@ -209,13 +262,33 @@
         root.parentNode.insertBefore(link, root)
     }
 
-
+      /*runInlineScript 运行行内脚本
+     * 如果有依赖之前加载的js的内联脚本,用该方法执行,
+     * scriptId js队列中的name值,可选
+     * codeId 包含内连脚本的textarea容器的id
+     * js队列中添加name code值进入,运行到该项时runjs函数直接把代码append到顶部运行
+     */
     lsloader.runInlineScript = function(scriptId,codeId){
         var code = document.getElementById(codeId).innerText;
         this.jsRunSequence.push({name:scriptId,code:code})
         this.runjs()
     }
-    //jslist [{name:名称,path:线上路径}]
+    /*loadCombo combo加载,顺序执行一系列js
+     *
+     * jslist :[
+     * {
+     * name:名称,
+     * path:线上路径
+     * }
+     * ]
+     * 遍历jslist数组,按照顺序加入jsRunSequence
+     * 其中,如果本地缓存成功,直接写入code准备执行
+     * 否则status值为comboloading code写入null 不会执行
+     * 所有comboloading的模块拼接成一个url请求线上combo服务
+     * 成功后执行runcombo方法运行脚本
+     * 失败的话所有requestingModules请求的js文件都置为failed
+     * runjs会启用script标签加载
+     */
     lsloader.loadCombo = function(jslist){
         var updateList = '';// 待更新combo模块列表
         var requestingModules = {};//存储本次更新map
@@ -261,6 +334,18 @@
 
         this.runjs();
     }
+    /*runcombo
+     * comboCode 服务端返回的用/combojs/注释分隔开的js代码
+     * requestingModules 所有被combo请求的modules map
+     * requestingModules:{
+     *       js文件name : true
+     * }
+     * combo服务返回代码后,用分隔符把所有js模块分隔成数组,
+     * 用requestingModules查找jsRunSequence中该模块对应的项,
+     * 更改该项,code为当前代码,status改为comboJS
+     * 所有combo返回的模块遍历成功后,runjs()
+     * runjs会把所有有代码的项当作成功项执行
+     */
     lsloader.runCombo = function(comboCode,requestingModules){
         comboCode = comboCode.split('/*combojs*/');
         comboCode.shift();//去除首个空code

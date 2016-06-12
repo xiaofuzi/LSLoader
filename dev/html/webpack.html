@@ -40,9 +40,11 @@
 <script src="../js/lib/gmu.js"></script>
 <!--js ls endbuild-->
 
-<!--js ls build-->
+
+<!--js combo build-->
+<script src="../js/webpack/picker.js"></script>
 <script src="../js/webpack/timepicker.js"></script>
-<!--js ls endbuild-->
+<!--js combo endbuild-->
 
 <!--js inline build-->
 <script>
@@ -68,7 +70,7 @@
         console.log(selectedText);
     });
 
-    $date.on('touchend', function () {
+    $date.on('touchstart', function () {
         $(this).timePicker('show');
     });
 </script>

@@ -1,28 +1,23 @@
 {
   "../css/main.css": "css/main-4f96fa1ada.css",
-  "../css/page2.css": "css/page2-9233b55c22.css",
-<<<<<<< HEAD
+  "../css/page2.css": "css/page2-0486b0abf4.css",
   "../css/page3.css": "css/page3-fdc56dff1b.css",
   "../css/webpack_reset.css": "css/webpack_reset-5c131dc58f.css",
-  "../js/AmdModule.js": "js/AmdModule-93b5544662.js",
-=======
-  "../css/page3.css": "css/page3-4c74aa09a8.css",
-  "../js/AmdModule.js": "js/AmdModule-b68b0c41d4.js",
->>>>>>> 2f70e640e9d2ac01ef963088f39187275e09d9c6
+  "../js/AmdModule.js": "js/AmdModule-9c50525029.js",
   "../js/common/commonDialog.js": "js/common/commonDialog-2ddfc1cdfc.js",
+  "../js/common/index2mod.js": "js/common/index2mod-6fc5b0776c.js",
   "../js/common/test.js": "js/common/test-9c740d7b0d.js",
-  "../js/index.js": "js/index-85c969fb73.js",
+  "../js/index.js": "js/index-cd302927b1.js",
+  "../js/index2.js": "js/index2-91b6487863.js",
   "../js/jquery.js": "js/jquery-aca795763d.js",
-<<<<<<< HEAD
   "../js/lib/fastclick.js": "js/lib/fastclick-0e0e4cd5f7.js",
   "../js/lib/gmu.js": "js/lib/gmu-52d3121884.js",
-  "../js/lib/lsloader.js": "js/lib/lsloader-9c7be3c50a.js",
+  "../js/lib/lsloader.js": "js/lib/lsloader-fc46a8bd22.js",
   "../js/lib/lsloader_sync.js": "js/lib/lsloader_sync-3b1b83a7e8.js",
+  "../js/noAMD/1.js": "js/noAMD/1-c41a23fafd.js",
+  "../js/noAMD/2.js": "js/noAMD/2-749181ac61.js",
   "../js/r.js": "js/r-f7e1522255.js",
-  "../js/util/util.js": "js/util/util-75b2ec3dea.js",
-  "../js/webpack/timepicker.js": "js/webpack/timepicker-76251867d7.js"
-=======
-  "../js/r.js": "js/r-f7e1522255.js",
-  "../js/util/util.js": "js/util/util-75b2ec3dea.js"
->>>>>>> 2f70e640e9d2ac01ef963088f39187275e09d9c6
+  "../js/util/util.js": "js/util/util-17b72c16ec.js",
+  "../js/webpack/picker.js": "js/webpack/picker-f49e85ff50.js",
+  "../js/webpack/timepicker.js": "js/webpack/timepicker-af98294a63.js"
 }

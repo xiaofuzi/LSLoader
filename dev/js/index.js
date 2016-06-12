@@ -1,5 +1,5 @@
 
 require(['AmdModule'], function (amd) {
-	$('body').append('done')
+	$(document.body).append('done');
 	amd();
 });

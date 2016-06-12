@@ -110,10 +110,31 @@ function replaceContent(content,json){
             for(var i in insideHrefs ){
                 if(json[insideHrefs[i]]){
                     cssOrginCodes+='<script>lsloader.load("'+insideHrefs[i]+'","'+json[insideHrefs[i]]+'" )</script>'
+
                 }
             }
         }
         return cssOrginCodes.replace(/<!--js ls build-->[\s|\S]*?<!--js ls endbuild-->/,'');
+    })
+
+    content= content.replace(/<!--js combo build-->[\s|\S]*?<!--js combo endbuild-->/g,function(cssOrginCodes){
+        var insideHrefs = cssOrginCodes.match(/[^'|^"]*\.js/g)
+        if(insideHrefs){ //match out href="test.css"
+            cssOrginCodes = '';
+            cssOrginCodes +='<script>lsloader.loadCombo(['
+            for(var i in insideHrefs ){
+                i = parseInt(i);
+                if(json[insideHrefs[i]]){
+                    cssOrginCodes+='{name:"'+insideHrefs[i]+'",path:"'+json[insideHrefs[i]].replace(staticPath,'')+'"}';
+
+                    if(!!json[insideHrefs[i+1]]){
+                        cssOrginCodes+=',';
+                    }
+                }
+            }
+            cssOrginCodes+='])</script>'
+        }
+        return cssOrginCodes;
     })
 
 
@@ -157,7 +178,7 @@ function replaceContent(content,json){
             var inlinejs = '';
             inlinejs+='<script>lsloader.loadCombo(['
             for(var i in AMDlist){
-                inlinejs+= '{name:"'+AMDlist[i]+'",path:"'+json[AMDlist[i]].replace(staticPath,'')+'"},' //combo服务不要线上路径 要文件目录路径
+                    inlinejs+= '{name:"'+AMDlist[i]+'",path:"'+json[AMDlist[i]].replace(staticPath,'')+'"},' //combo服务不要线上路径 要文件目录路径
             }
             inlinejs+='{name:"'+insideHrefs[0]+'",path:"'+json[insideHrefs[0]].replace(staticPath,'')+'"}' //最后加上入口文件
             inlinejs+='])</script>'

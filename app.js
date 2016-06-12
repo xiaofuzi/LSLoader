@@ -5,12 +5,13 @@ var fs= require("fs");
 
 app.use(express.static('build'));
 
+
 app.get('/', function (req, res) {
     res.sendfile("build/html/index.html");
 });
 
 app.get('/combo', function (req, res) {
-
+    res.header("Access-Control-Allow-Origin", "*");
     var combos = req.param('combo').split(';');
     combos=combos || req.param('combo');
     var result = '';
