@@ -170,20 +170,23 @@ function replaceContent(content,json){
 
 
     //替换AMD模块依赖分析后的脚本入行内
-    content= content.replace(/<!--js ls AMDModule build-->[\s|\S]*?<!--js ls AMDModule endbuild-->/,function(inlinejs){
-        var insideHrefs = inlinejs.match(/[^'|^"]*\.js/g)
-        if(insideHrefs[0]){
-            var fsPath = insideHrefs[0].replace('../','./dev/');//AMD文件本地地址
+    content= content.replace(/(<script[^>]*?>)(<\/script>)/g,function(inlinejs){
+        
+        var insideHrefs = inlinejs.match(/src=('|")[^'|^"]*\.js('|")/g)
+        if(insideHrefs!=null){
+            console.log('发现AMD格式js:'+insideHrefs+',开始分析依赖')
+            var jsSrc = insideHrefs[0].match(/[^'|^"]*\.js/g)[0]
+            var fsPath = jsSrc.replace('../','./dev/');//AMD文件本地地址
             var AMDlist = ASTbuild.run(fsPath,'./dev/js/');
             var inlinejs = '';
             inlinejs+='<script>lsloader.loadCombo(['
             for(var i in AMDlist){
                     inlinejs+= '{name:"'+AMDlist[i]+'",path:"'+json[AMDlist[i]].replace(staticPath,'')+'"},' //combo服务不要线上路径 要文件目录路径
             }
-            inlinejs+='{name:"'+insideHrefs[0]+'",path:"'+json[insideHrefs[0]].replace(staticPath,'')+'"}' //最后加上入口文件
+            inlinejs+='{name:"'+insideHrefs[0]+'",path:"'+json[jsSrc].replace(staticPath,'')+'"}' //最后加上入口文件
             inlinejs+='])</script>'
         }
-        return inlinejs.replace(/<!--js ls AMDModule build-->[\s|\S]*?<!--js ls AMDModule endbuild-->/,'');
+        return inlinejs
     })
 
     return content
