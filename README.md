@@ -133,9 +133,14 @@ console.log('?')
 
 
 ###AMD模块js分析 根据模块内的依赖把所有amd模块用combo加载,本地缓存
-<!--js ls AMDModule build-->
+
 <script src='../js/index.js'></script>
-<!--js ls AMDModule endbuild-->
+templateBuild.js会扫描模版引用中所有js文件，如果分析语法词含有define，
+则认定为AMD模块，引入处子动进行AST语法树分析－》转换为一个依赖序列－》最后使用
+lsLoader.loadCombo方法进行处理。
+如果你的项目不支持线上combo 在templateBuild.js中注释掉“//替换AMD模块依赖分析后的脚本入行内”
+后面的代码即可。
+
 编译结果:lsloader.loadCombo([所有index.js依赖的模块,从树叶到树根顺序排列]);
 
 ###非AMD模式js combo 所有注释内的文件会combo缓存进本地 灰度更新
