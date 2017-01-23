@@ -5,6 +5,12 @@ var entryPath =  './webpack_entry.json';
 var entryString = fs.readFileSync(entryPath, 'utf8');
 var entry = JSON.parse(entryString);
 
+var ManifestPlugin = require('webpack-manifest-plugin');
+var manifestPlugin = new ManifestPlugin({
+    publicPath: '/build/webpack2/',
+    // publicPath: 'http://s0.meituan.net/bs/js?f=wm/inode_lfs:/build/'
+});
+
 module.exports = {
     //插件项
     plugins: [
@@ -12,6 +18,7 @@ module.exports = {
             name:'common',
             filename : 'common_[chunkhash].js'
         }),
+        manifestPlugin,
         new webpack.HashedModuleIdsPlugin()
     ],
         //页面入口文件配置
