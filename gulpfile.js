@@ -57,3 +57,6 @@ gulp.task('amd',['clean','copy','build'],function(){
 gulp.task('webpack',function(){
     require('./gulptask/webpack2/lsloader_es6').run()
 })
+gulp.task('addcombo',function(){
+    require('./gulptask/webpack2/addCombo').run()
+})

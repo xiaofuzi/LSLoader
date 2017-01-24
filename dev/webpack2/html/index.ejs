@@ -390,9 +390,20 @@
 <a class="title" href="list">二级页面</a>
 
 <script>lsloader.load("<%= common.name %>","<%= common.path %>")</script>
-<% relyModules.forEach(function(relyModule){%>
-<script>lsloader.load("<%= relyModule.name %>","<%= relyModule.path %>")</script>
-<% }) %>
+<% if (relyModules.length > 0) { %>
+<script>
+    (function(){
+        var relyModules = [];
+        <% relyModules.forEach(function(relyModule){%>
+            relyModules.push({
+            name : '<%=relyModule.name%>',
+            path : '<%=relyModule.path%>'
+        });
+            <% }) %>
+        lsloader.loadCombo(relyModules);
+        })()
+</script>
+<% } %>
 <script>lsloader.load("<%= entrance.name %>","<%= entrance.path %>")</script>
 </body>
 </html>
