@@ -27,7 +27,7 @@ gulp.task('uglify',['clean','copy'], function() {
 
 
 
-gulp.task('build',['clean','copy','uglify'], function () {
+gulp.task('build',['clean','copy'], function () {
     // by default, gulp would pick `assets/css` as the base,
     // so we need to set it explicitly:
    return  gulp.src(['build/**/*.css', 'build/**/*.js'])
@@ -50,7 +50,7 @@ gulp.task('default',['clean'],function(){
    gulp.run('lsload')
 })
 
-gulp.task('amd',['clean','copy','uglify','build'],function(){
+gulp.task('amd',['clean','copy','build'],function(){
     gulp.run('lsload')
 })
 

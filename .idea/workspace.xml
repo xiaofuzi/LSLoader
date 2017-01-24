@@ -2,48 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="683417de-4be0-4c39-bc59-b2b6476edb66" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gulptask/webpack2/lsloader_es6.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/AmdModule-9c50525029.js" afterPath="$PROJECT_DIR$/build/js/AmdModule-9c50525029.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/AmdModule.js" afterPath="$PROJECT_DIR$/build/js/AmdModule.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/common/commonDialog-2ddfc1cdfc.js" afterPath="$PROJECT_DIR$/build/js/common/commonDialog-2ddfc1cdfc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/common/commonDialog.js" afterPath="$PROJECT_DIR$/build/js/common/commonDialog.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/common/index2mod-6fc5b0776c.js" afterPath="$PROJECT_DIR$/build/js/common/index2mod-6fc5b0776c.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/common/index2mod.js" afterPath="$PROJECT_DIR$/build/js/common/index2mod.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/common/test-9c740d7b0d.js" afterPath="$PROJECT_DIR$/build/js/common/test-9c740d7b0d.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/common/test.js" afterPath="$PROJECT_DIR$/build/js/common/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/index-cd302927b1.js" afterPath="$PROJECT_DIR$/build/js/index-cd302927b1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/index.js" afterPath="$PROJECT_DIR$/build/js/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/index2-91b6487863.js" afterPath="$PROJECT_DIR$/build/js/index2-91b6487863.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/index2.js" afterPath="$PROJECT_DIR$/build/js/index2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/jquery-aca795763d.js" afterPath="$PROJECT_DIR$/build/js/jquery-aca795763d.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/jquery.js" afterPath="$PROJECT_DIR$/build/js/jquery.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/fastclick-0e0e4cd5f7.js" afterPath="$PROJECT_DIR$/build/js/lib/fastclick-0e0e4cd5f7.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/fastclick.js" afterPath="$PROJECT_DIR$/build/js/lib/fastclick.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/gmu-52d3121884.js" afterPath="$PROJECT_DIR$/build/js/lib/gmu-52d3121884.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/gmu.js" afterPath="$PROJECT_DIR$/build/js/lib/gmu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/lsloader-fc46a8bd22.js" afterPath="$PROJECT_DIR$/build/js/lib/lsloader-fc46a8bd22.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/lsloader.js" afterPath="$PROJECT_DIR$/build/js/lib/lsloader.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/lsloader_sync-3b1b83a7e8.js" afterPath="$PROJECT_DIR$/build/js/lib/lsloader_sync-3b1b83a7e8.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/lib/lsloader_sync.js" afterPath="$PROJECT_DIR$/build/js/lib/lsloader_sync.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/noAMD/1-c41a23fafd.js" afterPath="$PROJECT_DIR$/build/js/noAMD/1-c41a23fafd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/noAMD/1.js" afterPath="$PROJECT_DIR$/build/js/noAMD/1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/noAMD/2-749181ac61.js" afterPath="$PROJECT_DIR$/build/js/noAMD/2-749181ac61.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/noAMD/2.js" afterPath="$PROJECT_DIR$/build/js/noAMD/2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/r-f7e1522255.js" afterPath="$PROJECT_DIR$/build/js/r-f7e1522255.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/r.js" afterPath="$PROJECT_DIR$/build/js/r.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/util/util-17b72c16ec.js" afterPath="$PROJECT_DIR$/build/js/util/util-17b72c16ec.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/util/util.js" afterPath="$PROJECT_DIR$/build/js/util/util.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/webpack/picker-f49e85ff50.js" afterPath="$PROJECT_DIR$/build/js/webpack/picker-f49e85ff50.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/webpack/picker.js" afterPath="$PROJECT_DIR$/build/js/webpack/picker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/webpack/timepicker-af98294a63.js" afterPath="$PROJECT_DIR$/build/js/webpack/timepicker-af98294a63.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/js/webpack/timepicker.js" afterPath="$PROJECT_DIR$/build/js/webpack/timepicker.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/webpack2/html/index.ejs" afterPath="$PROJECT_DIR$/dev/webpack2/html/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dev/webpack2/html/list.ejs" afterPath="$PROJECT_DIR$/dev/webpack2/html/list.ejs" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/css/main-4f96fa1ada.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/css/page2-0486b0abf4.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/css/page3-fdc56dff1b.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/css/webpack_reset-5c131dc58f.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/AmdModule-9c50525029.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/AmdModule.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/common/commonDialog-2ddfc1cdfc.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/common/commonDialog.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/common/index2mod-6fc5b0776c.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/common/index2mod.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/common/test-9c740d7b0d.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/common/test.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/index-cd302927b1.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/index2-91b6487863.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/index2.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/jquery-aca795763d.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/fastclick-0e0e4cd5f7.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/fastclick.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/gmu-52d3121884.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/gmu.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/lsloader-fc46a8bd22.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/lsloader.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/lsloader_sync-3b1b83a7e8.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/lib/lsloader_sync.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/noAMD/1-c41a23fafd.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/noAMD/1.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/noAMD/2-749181ac61.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/noAMD/2.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/r-f7e1522255.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/r.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/util/util-17b72c16ec.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/util/util.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/webpack/picker-f49e85ff50.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/webpack/picker.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/webpack/timepicker-af98294a63.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/webpack/timepicker.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/rev-manifest.json" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/html/index.html" afterPath="$PROJECT_DIR$/build/html/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/html/index2.html" afterPath="$PROJECT_DIR$/build/html/index2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/html/noAMD.html" afterPath="$PROJECT_DIR$/build/html/noAMD.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/html/webpack.html" afterPath="$PROJECT_DIR$/build/html/webpack.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.js" afterPath="$PROJECT_DIR$/webpack.config.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack_lsloader_entry.json" afterPath="$PROJECT_DIR$/webpack_lsloader_entry.json" />
     </list>
     <ignored path="LSLoader.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,14 +68,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="lsloader.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build/js/lib/lsloader.js">
+      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gulpfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.21548118">
+              <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -98,11 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="list.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/webpack2/html/list.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.81206495">
-              <caret line="395" column="7" selection-start-line="395" selection-start-column="7" selection-end-line="395" selection-end-column="7" />
+            <state vertical-scroll-proportion="-10.833333">
+              <caret line="389" column="0" selection-start-line="389" selection-start-column="0" selection-end-line="389" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,7 +146,6 @@
         <option value="$PROJECT_DIR$/dev/webpack2/js/component/list.vue" />
         <option value="$PROJECT_DIR$/dev/webpack2/js/pages/index.js" />
         <option value="$PROJECT_DIR$/dev/webpack2/css/common.css" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/webpack_entry.json" />
         <option value="$PROJECT_DIR$/gulptask/webpack2/lsloader_es6.js" />
         <option value="$PROJECT_DIR$/webpack_lsloader_entry.json" />
@@ -154,6 +153,7 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/dev/webpack2/html/index.ejs" />
         <option value="$PROJECT_DIR$/dev/webpack2/html/list.ejs" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
       </list>
     </option>
   </component>
@@ -175,10 +175,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="180" />
-    <option name="y" value="-1028" />
-    <option name="width" value="1440" />
-    <option name="height" value="803" />
+    <option name="x" value="132" />
+    <option name="y" value="-1057" />
+    <option name="width" value="1484" />
+    <option name="height" value="957" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -406,20 +406,6 @@
               <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LSLoader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LSLoader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="webpack2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -436,10 +422,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1015,7 +997,7 @@
       <workItem from="1461455334259" duration="7237000" />
       <workItem from="1485151785947" duration="5004000" />
       <workItem from="1485157155069" duration="11426000" />
-      <workItem from="1485233481962" duration="6235000" />
+      <workItem from="1485233481962" duration="6533000" />
     </task>
     <task id="LOCAL-00001" summary="ss">
       <created>1485152529447</created>
@@ -1033,10 +1015,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117208000" />
+    <option name="totallyTimeSpent" value="117506000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="180" y="-1028" width="1440" height="803" extended-state="0" />
+    <frame x="132" y="-1057" width="1484" height="957" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1047,10 +1029,10 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769986" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3206751" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4150289" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2067239" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20041609" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1217,27 +1199,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/AmdModule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/noAMD/1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/noAMD/2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/uglify-js/lib/ast.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.740741">
@@ -1256,13 +1217,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/rev-manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1326,14 +1280,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gulptask/webpack2/lsloader_es6.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.740741">
@@ -1341,42 +1287,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/webpack2/page_index_62d29106ebc4fa7d88d1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/webpack2/common_b13d8ba2eaa54cdcf63b.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/webpack2/vueminjs_563fcfec3a6d200ca9bc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1485245117000" expanded="true" signature="265545:265554" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/webpack2/listvue_ee2e54f3faed72949254.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1412,14 +1322,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/webpack2/manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.75">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1444,16 +1346,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/lib/lsloader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.259259">
@@ -1472,8 +1364,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/webpack2/html/list.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81206495">
-          <caret line="395" column="7" selection-start-line="395" selection-start-column="7" selection-end-line="395" selection-end-column="7" />
+        <state vertical-scroll-proportion="-10.833333">
+          <caret line="389" column="0" selection-start-line="389" selection-start-column="0" selection-end-line="389" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21548118">
+          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
           <folding />
         </state>
       </provider>

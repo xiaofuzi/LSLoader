@@ -1,1 +1,0 @@
-/*combojs*//*combojs*/require(["common/index2mod"],function(n){n()});

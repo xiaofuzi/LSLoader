@@ -1,1 +1,0 @@
-/*combojs*//*combojs*/define("common/index2mod",["util/util"],function(n){return function(){alert("indexmod2 成功!")}});
