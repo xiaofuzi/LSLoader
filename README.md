@@ -263,16 +263,19 @@ templateBuild.js是所有文档编译的核心文件,它是基于gulp工作流�
      basePath: 相对与ASTBuild.js的目录,该目录下的js文件会被AST分析程序过滤搜索
 
 ##九 Lsloader 配合webpack2 使用
-     结合webpack2的打包hash打包能力,Lsloader能够对webpack2的模块进行拆分打包操作.具体原理是利用HashedModuleIdsPlugin让模块序号稳定,再自动分析
-     js源代码的es6引用路径,通过commonChunksPlugin插件,让入口引用的模块都独立打包并且调用Lsloader.loadCombo统一读取/存储
-     具体演示:</br>
-     项目根目录下npm install<br/>
+     结合webpack2的打包hash打包能力,Lsloader能够对webpack2的模块进行拆分打包操作.
+     具体原理是利用HashedModuleIdsPlugin让模块序号稳定,再自动分析
+     js源代码的es6引用路径,通过commonChunksPlugin插件,让入口引用的模块都独立打包
+     并且调用Lsloader.loadCombo统一读取/存储
+     具体演示:
 
-     运行gulp amd<br/>
+     项目根目录下npm install
 
-     运行node app.js 启动express<br/>
+     运行gulp amd
 
-     访问http://localhost:3000/webpack/index 即可看见打包后的webpack2代码<br/>
+     运行node app.js 启动express
+
+     访问http://localhost:3000/webpack/index 即可看见打包后的webpack2代码
 
 
 
