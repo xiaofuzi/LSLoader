@@ -271,7 +271,11 @@ templateBuild.js是所有文档编译的核心文件,它是基于gulp工作流�
 
      项目根目录下npm install
 
-     运行gulp amd
+     运行gulp webpack 源码预处理
+
+     再运行 webpack  打包
+
+     最后gulp addcombo 完成预处理
 
      运行node app.js 启动express
 
