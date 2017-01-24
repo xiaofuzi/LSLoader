@@ -55,5 +55,5 @@ gulp.task('amd',['clean','copy','uglify','build'],function(){
 })
 
 gulp.task('webpack',function(){
-    gulp.run('lsload')
+    require('./gulptask/webpack2/lsloader_es6').run()
 })

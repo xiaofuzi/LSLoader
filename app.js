@@ -15,21 +15,36 @@ app.set("view engine", 'ejs');
 //指定模板位置
 app.set('views', __dirname + '/dev/webpack2/html');
 
-//利用模板文件home.ejs渲染为html
-app.get("/webpack", function(req, res) {
-    res.render('index.ejs', {
-        common : mainfest['common.js'],
-        entranceName:mainfest['index.js']
-    });
-});
+
 
 let mainfest = fs.readFileSync(__dirname + '/build/webpack2/manifest.json',"utf-8");
-mainfest = JSON.parse(mainfest)
+mainfest = JSON.parse(mainfest); //md5 对应表
+
+let moduleMap = fs.readFileSync(__dirname + '/gulptask/webpack2/build/moduleMap.json',"utf-8");
+moduleMap = JSON.parse(moduleMap); //依赖关系 对应表
+
+
 app.get("/webpack/**", function(req, res) {
     var pathName = req.path.replace(/\/webpack\//g,'');
+    let relyModules = [];//依赖列表
+    if(moduleMap[pathName+'.js']){
+        for(var key in moduleMap[pathName+'.js']){
+            relyModules.push({
+                name:key,
+                path:mainfest[key+'.js']
+            })
+        }
+    }
     res.render(pathName+'.ejs', {
-        common : mainfest['common.js'],
-        entranceName:mainfest[pathName + '.js']
+        common : {
+            name : 'common.js',
+            path : mainfest['common.js']
+        },
+        relyModules : relyModules,
+        entrance: {
+            name : pathName + '.js',
+            path : mainfest[pathName + '.js']
+        }
     });
 });
 

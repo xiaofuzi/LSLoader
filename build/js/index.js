@@ -1,1 +1,1 @@
-/*combojs*/require(["AmdModule"],function(d){$(document.body).append("done"),d()});
+/*combojs*//*combojs*/require(["AmdModule"],function(d){$(document.body).append("done"),d()});

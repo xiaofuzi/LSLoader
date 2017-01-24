@@ -11,6 +11,14 @@ var manifestPlugin = new ManifestPlugin({
     // publicPath: 'http://s0.meituan.net/bs/js?f=wm/inode_lfs:/build/'
 });
 
+//自定义拆分列表数组
+commonChunksListString = fs.readFileSync('./gulptask/webpack2/build/commonChunksConfig.json', 'utf8');
+commonChunksListString = JSON.parse(commonChunksListString);
+let commonChunksList = [];
+for(var i in commonChunksListString){
+    commonChunksList.push(new webpack.optimize.CommonsChunkPlugin(commonChunksListString[i]))
+}
+
 module.exports = {
     //插件项
     plugins: [
@@ -20,7 +28,7 @@ module.exports = {
         }),
         manifestPlugin,
         new webpack.HashedModuleIdsPlugin()
-    ],
+    ].concat(commonChunksList),
         //页面入口文件配置
         entry: entry,
         //入口文件输出配置
