@@ -1,9 +1,28 @@
 <html>
 <head>
-    <title>my ejs template</title>
+    <title>首页</title>
+    <script>
+        (function () {
+            function o() {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth/750 * 100 + 'px';
+            }
+
+            var e = null;
+            window.addEventListener("resize", function () {
+                clearTimeout(e), e = setTimeout(o, 300)
+            }, !1), o()
+        })(window);
+    </script>
 </head>
 
 <body>
-<p>Hi <%= name %></p>
+<span class="title">首页列表</span>
+<div id="root">
+    <list :list="listData"></list>
+</div>
+<a class="title" href="webpack/list">二级页面</a>
+
+<script src="<%= common %>"></script>
+<script src="<%= entranceName %>"></script>
 </body>
 </html>

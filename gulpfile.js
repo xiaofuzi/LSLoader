@@ -46,6 +46,14 @@ gulp.task('lsload',function(){
 
 })
 
-gulp.task('default',['clean','copy','uglify','build'],function(){
+gulp.task('default',['clean'],function(){
    gulp.run('lsload')
+})
+
+gulp.task('amd',['clean','copy','uglify','build'],function(){
+    gulp.run('lsload')
+})
+
+gulp.task('webpack',function(){
+    gulp.run('lsload')
 })

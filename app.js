@@ -18,12 +18,18 @@ app.set('views', __dirname + '/dev/webpack2/html');
 //利用模板文件home.ejs渲染为html
 app.get("/webpack", function(req, res) {
     res.render('index.ejs', {
-        name: 'devil'
+        common : mainfest['common.js'],
+        entranceName:mainfest['index.js']
     });
 });
+
+let mainfest = fs.readFileSync(__dirname + '/build/webpack2/manifest.json',"utf-8");
+mainfest = JSON.parse(mainfest)
 app.get("/webpack/**", function(req, res) {
-    res.render(req.path.replace(/\/webpack\//g,'')+'.ejs', {
-        name: 'devil'
+    var pathName = req.path.replace(/\/webpack\//g,'');
+    res.render(pathName+'.ejs', {
+        common : mainfest['common.js'],
+        entranceName:mainfest[pathName + '.js']
     });
 });
 

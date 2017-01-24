@@ -1,13 +1,13 @@
 var webpack = require('webpack');
 var fs = require('fs');
 
-var entryPath =  './webpack_entry.json';
+var entryPath =  './webpack_lsloader_entry.json';
 var entryString = fs.readFileSync(entryPath, 'utf8');
 var entry = JSON.parse(entryString);
 
 var ManifestPlugin = require('webpack-manifest-plugin');
 var manifestPlugin = new ManifestPlugin({
-    publicPath: '/build/webpack2/',
+    publicPath: '/webpack2/',
     // publicPath: 'http://s0.meituan.net/bs/js?f=wm/inode_lfs:/build/'
 });
 
@@ -26,7 +26,7 @@ module.exports = {
         //入口文件输出配置
         output: {
         path: './build/webpack2',
-            filename: 'page[name]_[chunkhash].js'
+            filename: 'page_[name]_[chunkhash].js'
     },
     module: {
         //加载器配置

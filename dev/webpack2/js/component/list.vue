@@ -1,6 +1,6 @@
 <template>
-    <ul>
-        <li v-for="item in list">
+    <ul class="list-wrap">
+        <li class="list-item" v-for="item in list">
             {{item}}
         </li>
     </ul>
@@ -16,13 +16,13 @@
     }
 </script>
 
-<style scoped>
-    ul{
+<style>
+    .list-wrap{
         margin: 0;
         padding: 0;
         list-style: none;
     }
-    li{
+    .list-item{
         margin: 0;
         padding: 0;
         list-style:none;
@@ -32,7 +32,7 @@
         padding: .2rem .3rem;
         position: relative;
     }
-    li:after{
+    .list-item:after{
         content: '';
         display: block;
         width: 100%;
